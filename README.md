@@ -55,8 +55,7 @@ projetos do plurish ao mesmo tempo, cada um em seu container
 
 ## Como rodar local
 O recomendado é o uso da docker-compose.yml file acima,
-pois facilita o levantamento dos containers de modo mais fácil:
-
+pois facilita a criação dos containers:
 ```bash
 docker compose up
 ```
