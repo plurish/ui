@@ -64,5 +64,6 @@ Mas caso queira rodar o UI individualmente, execute o `docker run` de dentro
 do diretório do projeto:
 ```bash
 # deixa a UI rodando na porta 8000
+docker build -t plurish/ui:dev .
 docker run --name=plurish-ui -p 8000:8000 plurish/ui:dev
 ```
