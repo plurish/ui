@@ -24,6 +24,8 @@ services:
     ports:
       - 8000:8000
     volumes:
+      - /var/www/vendor
+      - /var/www/node_modules
       - ./ui:/var/www
 
   db:
@@ -67,3 +69,7 @@ do diretório do projeto:
 docker build -t plurish/ui:dev .
 docker run --name=plurish-ui -p 8000:8000 plurish/ui:dev
 ```
+
+Após a instalação das libraries com composer/yarn, é necessário
+ copiar manualmente os arquivos da `node_modules` e da `vendor`,
+ para que o VS Code reconheça a existência dos arquivos importados.

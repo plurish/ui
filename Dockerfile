@@ -11,6 +11,7 @@ RUN apt update && apt install -y \
     npm
 
 RUN npm i -g n && n 20 && npm i -g npm@latest
+RUN npm i -g yarn
 
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install pdo pdo_mysql intl
@@ -21,19 +22,20 @@ RUN curl -sS https://getcomposer.org/installer \
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash \
     && apt install symfony-cli
 
+WORKDIR /var/www
+COPY ./ ./
+
 # Creating dev user
 RUN groupadd --force -g 1000 dev
 RUN useradd -ms /bin/bash --no-user-group -g 1000 -u 1000 dev
 RUN chown -hR dev:dev /var/www
+# RUN chmod -cR /usr/local/lib/node_modules
 
 USER dev
 
 # Installing dependencies
-WORKDIR /var/www
-COPY ./ ./
-
-RUN composer install 
-# RUN npm i -g yarn && yarn
+RUN composer install
+RUN yarn
 
 # Starting the app
 CMD ["bash", "./init.sh"]

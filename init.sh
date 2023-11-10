@@ -2,5 +2,4 @@
 
 cd /var/www/
 
-# yarn run watch & 
-symfony server:start
+yarn run watch & symfony server:start
