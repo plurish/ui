@@ -3,3 +3,4 @@ controllers:
         path: ../src/Http/Controller/
         namespace: App\Http\Controller
     type: attribute
+    trailing_slash_on_root: false

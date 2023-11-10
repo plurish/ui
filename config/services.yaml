@@ -20,5 +20,14 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    App\Http\Controller\:
+        resource: "../src/Http/Controller/"
+        arguments:
+            $inertia: "@rompetomp_inertia.inertia"
+        tags: ["controller.service_arguments"]
+        exclude:
+            - "../src/Http/Controller/Api"
+
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
