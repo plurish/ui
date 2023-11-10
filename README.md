@@ -70,6 +70,12 @@ docker build -t plurish/ui:dev .
 docker run --name=plurish-ui -p 8000:8000 plurish/ui:dev
 ```
 
-Após a instalação das libraries com composer/yarn, é necessário
- copiar manualmente os arquivos da `node_modules` e da `vendor`,
- para que o VS Code reconheça a existência dos arquivos importados.
+## Libraries de terceiros
+Após a instalação das libraries com composer/yarn (ou após subir os containers), é necessário
+ copiar manualmente os arquivos da `node_modules` e da `vendor`, que estão no container,
+ para dentro da sua própria máquina, de modo que o VS Code reconheça a existência das libraries instaladas,
+ sem mostrar erros:
+```bash
+sudo docker cp plurish-ui:/var/www/vendor ./ui
+sudo docker cp plurish-ui:/var/www/node_modules ./ui
+```
