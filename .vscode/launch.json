@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen for Xdebug in Docker",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "pathMappings": {
+        "/var/www": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Docker Compose Up",
+      "request": "launch",
+      "preLaunchTask": "compose-up",
+	  "type": "node"
+    },
+	{
+      "name": "Docker Compose Down",
+      "request": "launch",
+      "preLaunchTask": "compose-down",
+	  "type": "node"
+    },
+  ],
+  "compounds": [
+    {
+      "name": "Start & Debug",
+      "configurations": ["Docker Compose Up", "Listen for Xdebug in Docker"]
+    }
+  ]
+}

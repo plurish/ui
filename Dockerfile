@@ -22,6 +22,9 @@ RUN curl -sS https://getcomposer.org/installer \
 RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash \
     && apt install symfony-cli
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+COPY ./xdebug.ini "${PHP_INI_DIR}/conf.d"
+
 WORKDIR /var/www
 COPY ./ ./
 
@@ -29,7 +32,6 @@ COPY ./ ./
 RUN groupadd --force -g 1000 dev
 RUN useradd -ms /bin/bash --no-user-group -g 1000 -u 1000 dev
 RUN chown -hR dev:dev /var/www
-# RUN chmod -cR /usr/local/lib/node_modules
 
 USER dev
 

@@ -6,6 +6,7 @@ import * as components from 'vuetify/components';
 import * as directives from 'vuetify/directives';
 import { aliases, mdi } from 'vuetify/iconsets/mdi';
 
+// TODO: customizar scrollbar de acordo com o theme
 const darkTheme: ThemeDefinition = {
     dark: true,
     colors: {

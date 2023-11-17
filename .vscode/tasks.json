@@ -1,0 +1,17 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "compose-up",
+            "command": "docker",
+            "args": ["compose", "up", "-d"],
+            "type": "shell"
+        },
+        {
+            "label": "compose-down",
+            "command": "docker",
+            "args": ["compose", "down"],
+            "type": "shell"
+        },
+    ]
+}
