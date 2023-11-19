@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends BaseViewController
 {
     #[Route('/', name: 'home.index')]
-    #[Route('/home', name: 'home.index.home')]
+    #[Route('/home', name: 'home.index (/home)')]
     public function index(): Response
     {
         // TODO: get games from IGDB API
