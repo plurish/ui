@@ -1,6 +1,6 @@
 <? declare(strict_types=1);
 
-namespace DTO\Response;
+namespace App\DTO\Response;
 
 /** A response wrapper for the API responses */
 class ResponseDTO

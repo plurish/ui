@@ -2,34 +2,38 @@
 
 namespace App\Http\Controller\Api;
 
-use App\Service\GameService;
+use App\Service\Interface\GameServiceInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Uid\Uuid;
 
 #[Route('/api/game')]
 class GameApiController extends BaseApiController
 {
     public function __construct(
+        private readonly GameServiceInterface $gameService,
         private readonly LoggerInterface $logger,
-        private readonly GameService $gameService,
+        private readonly SerializerInterface $serializer
     ) {
     }
 
     #[Route('/', name: 'api.game.get', methods: ['GET'])]
-    public function get(): Response
+    public function get(#[MapQueryParameter] ?int $max): Response
     {
-        $traceId = uuid_create();
+        $traceId = Uuid::v4()->toRfc4122();
 
         $this->logger->debug('[api.game.get] - BEGIN - TraceID: {traceId}', ['traceId' => $traceId]);
 
-        $games = $this->gameService->getAll();
+        $games = $this->gameService->get($max, $traceId);
 
         $this->logger->debug('[api.game.get] - END - Response: {games} - TraceID: {traceId}', [
             'traceId' => $traceId,
-            'games' => $games
+            'games' => $this->serializer->serialize($games, 'json')
         ]);
 
-        return $this->json($games);
+        return $this->response($games);
     }
 }

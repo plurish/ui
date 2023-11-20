@@ -2,7 +2,7 @@
 
 namespace App\Factory;
 
-use DTO\Response\ResponseDTO;
+use App\DTO\Response\ResponseDTO;
 use Symfony\Component\HttpFoundation\Response;
 
 /** An inflexible factory for the ResponseDTO */
@@ -18,6 +18,7 @@ class ResponseFactory
 
     // 200 - 299
     /**
+     * @template T 'data' param type
      * @param ?string $message Specify details about the response
      * @param T|null $data
      * 
@@ -29,6 +30,7 @@ class ResponseFactory
     }
 
     /**
+     * @template T 'data' param type
      * @param ?string $message Specify details about the response
      * @param T|null $data
      * 
@@ -50,27 +52,51 @@ class ResponseFactory
     }
 
     // 400 - 499
+    /**
+     * @param ?string $message Specify details about the response
+     * 
+     * @return ResponseDTO<null>
+     */
     public static function unprocessableEntity(?string $message = ''): ResponseDTO
     {
         return self::create(Response::HTTP_UNPROCESSABLE_ENTITY, $message);
     }
 
+    /**
+     * @param ?string $message Specify details about the response
+     * 
+     * @return ResponseDTO<null>
+     */
     public static function badRequest(?string $message = ''): ResponseDTO
     {
         return self::create(Response::HTTP_BAD_REQUEST, $message);
     }
 
+    /**
+     * @param ?string $message Specify details about the response
+     * 
+     * @return ResponseDTO<null>
+     */
     public static function unauthorized(?string $message = ''): ResponseDTO
     {
         return self::create(Response::HTTP_UNAUTHORIZED, $message);
     }
 
+    /**
+     * @param ?string $message Specify details about the response
+     * 
+     * @return ResponseDTO<null>
+     */
     public static function forbidden(?string $message = ''): ResponseDTO
     {
         return self::create(Response::HTTP_FORBIDDEN, $message);
     }
 
-    // 500 - 599
+    /**
+     * @param ?string $message Specify details about the response
+     * 
+     * @return ResponseDTO<null>
+     */// 500 - 599
     public static function internalServerError(?string $message = ''): ResponseDTO
     {
         return self::create(Response::HTTP_INTERNAL_SERVER_ERROR, $message);
