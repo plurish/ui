@@ -14,11 +14,13 @@
             </template>
         </v-app-bar>
 
+        {# Clicável do menu #}
         <v-navigation-drawer v-model="showSidebar">
             <v-list-item title="Guest" prepend-icon="mdi-account-circle"></v-list-item>
 
             <v-divider />
 
+            {# Itens dentro do menu #}
             <v-list density="compact" nav>
                 <v-list-item title="Home" prepend-icon="mdi-home" value="home"></v-list-item>
                 <v-list-item title="Sign In" prepend-icon="mdi-login" value="signin"></v-list-item>

@@ -23,6 +23,7 @@ services:
     App\Http\Controller\:
         resource: "../src/Http/Controller/"
         arguments:
+        # Rompetomp << Código dos outros
             $inertia: "@rompetomp_inertia.inertia"
         tags: ["controller.service_arguments"]
         exclude:
