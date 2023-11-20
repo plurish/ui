@@ -10,7 +10,7 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi';
 const darkTheme: ThemeDefinition = {
     dark: true,
     colors: {
-        primary: '#38ACEB',
+        primary: '#fff',
         secondary: '#DDF2FD'
     }
 }

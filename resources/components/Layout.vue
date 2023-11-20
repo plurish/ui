@@ -1,7 +1,9 @@
 <template>
     <v-app>
         <v-app-bar :elevation="2" density="comfortable">
-            <v-app-bar-nav-icon @click="showSidebar = !showSidebar"></v-app-bar-nav-icon>
+            <v-app-bar-nav-icon
+                @click="showSidebar = !showSidebar"
+            ></v-app-bar-nav-icon>
 
             <v-app-bar-title class="text-2xl">
                 <Link href="/">Plurish</Link>
@@ -10,18 +12,32 @@
             <p class="pr-6">{{ seconds }}</p>
 
             <template v-slot:append>
-                <v-icon icon="mdi-theme-light-dark" @click="toggleTheme"></v-icon>
+                <v-icon
+                    icon="mdi-theme-light-dark"
+                    @click="toggleTheme"
+                ></v-icon>
             </template>
         </v-app-bar>
 
         <v-navigation-drawer v-model="showSidebar">
-            <v-list-item title="Guest" prepend-icon="mdi-account-circle"></v-list-item>
+            <v-list-item
+                title="Guest"
+                prepend-icon="mdi-account-circle"
+            ></v-list-item>
 
             <v-divider />
 
             <v-list density="compact" nav>
-                <v-list-item title="Home" prepend-icon="mdi-home" value="home"></v-list-item>
-                <v-list-item title="Sign In" prepend-icon="mdi-login" value="signin"></v-list-item>
+                <v-list-item
+                    title="Home"
+                    prepend-icon="mdi-home"
+                    value="home"
+                ></v-list-item>
+                <v-list-item
+                    title="Sign In"
+                    prepend-icon="mdi-login"
+                    value="signin"
+                ></v-list-item>
             </v-list>
         </v-navigation-drawer>
 
@@ -37,7 +53,7 @@
     </v-app>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent } from 'vue';
 import { Link } from '@inertiajs/vue3';
 import { useTheme } from 'vuetify/lib/framework.mjs';
@@ -45,7 +61,7 @@ import { useTheme } from 'vuetify/lib/framework.mjs';
 export default /*#__PURE__*/ defineComponent({
     setup() {
         return { theme: useTheme() };
-    },  
+    },
 
     components: { Link },
 
@@ -57,8 +73,10 @@ export default /*#__PURE__*/ defineComponent({
 
     methods: {
         toggleTheme() {
-            this.theme.global.name.value = this.theme.global.current.value.dark ? 'light' : 'dark';
-        }
-    }
+            this.theme.global.name.value = this.theme.global.current.value.dark
+                ? 'light'
+                : 'dark';
+        },
+    },
 });
 </script>
