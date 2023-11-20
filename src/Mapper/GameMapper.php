@@ -3,6 +3,7 @@
 namespace App\Mapper;
 
 use App\DTO\Game\GamePartialDTO;
+use App\Repository\FreeGameRepository;
 
 class GameMapper
 {
@@ -11,6 +12,11 @@ class GameMapper
      */
     public static function freePartialToStandardPartial(array $freeGame): GamePartialDTO
     {
+        $videos = [
+            FreeGameRepository::BASE_URL . '/g/' . $freeGame['id'] . '/videplayback.webm',
+            FreeGameRepository::BASE_URL . '/g/' . $freeGame['id'] . '/videplayback.mp4',
+        ];
+
         return new GamePartialDTO(
             $freeGame['id'],
             $freeGame['title'],
@@ -20,6 +26,7 @@ class GameMapper
             $freeGame['publisher'],
             $freeGame['developer'],
             $freeGame['platform'],
+            $videos
         );
     }
 

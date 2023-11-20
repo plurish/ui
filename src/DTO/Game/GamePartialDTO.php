@@ -13,6 +13,7 @@ class GamePartialDTO
         public readonly string $publisher,
         public readonly string $developer,
         public readonly string $platform,
+        public readonly array $videos
     ) {
     }
 }

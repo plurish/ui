@@ -23,12 +23,12 @@ class FreeGameService implements GameServiceInterface
     public function get(?int $max, string $traceId): ResponseDTO
     {
         try {
-            // add videos prop to gamePartialDTO
-            // randomize returned games
             $games = $this->gameRepository->getAll();
 
             if ($max)
                 $games = array_slice($games, 0, $max);
+
+            shuffle($games);
 
             return ResponseFactory::ok(data: $games);
         } catch (\Exception $ex) {

@@ -9,12 +9,13 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class FreeGameRepository implements GameRepositoryInterface
 {
+    public const BASE_URL = 'https://www.freetogame.com';
     private readonly HttpClientInterface $httpClient;
 
     public function __construct(HttpClientInterface $httpClient)
     {
         $this->httpClient = $httpClient->withOptions([
-            'base_uri' => 'https://www.freetogame.com'
+            'base_uri' => self::BASE_URL
         ]);
     }
 

@@ -3,7 +3,6 @@
 namespace App\Service\Interface;
 
 use App\DTO\Response\ResponseDTO;
-use Symfony\Component\Uid\Uuid;
 
 interface GameServiceInterface
 {
