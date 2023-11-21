@@ -40,4 +40,20 @@ class FreeGameService implements GameServiceInterface
             return ResponseFactory::internalServerError();
         }
     }
+
+    public function getById(int $id, string $traceId): ResponseDTO
+    {
+        try {
+            $game = $this->gameRepository->getById($id);
+
+            return ResponseFactory::ok(data: $game);
+        } catch (\Exception $ex) {
+            $this->logger->error('[GameService.getAll] - {exception} - TraceID: {traceId}', [
+                'exception' => $ex,
+                'traceId' => $traceId
+            ]);
+
+            return ResponseFactory::internalServerError();
+        }
+    }
 }

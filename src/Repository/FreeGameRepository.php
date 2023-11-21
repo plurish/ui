@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\DTO\Game\GameDTO;
 use App\Mapper\GameMapper;
 use App\Repository\Interface\GameRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,5 +27,14 @@ class FreeGameRepository implements GameRepositoryInterface
         ]);
 
         return GameMapper::freePartialsToStandardPartials($response->toArray());
+    }
+
+    public function getById(int $id): GameDTO
+    {
+        $response = $this->httpClient->request(Request::METHOD_GET, '/api/game', [
+            'query' => ['id' => $id]
+        ]);
+
+        return GameMapper::freeToStandard($response->toArray());
     }
 }

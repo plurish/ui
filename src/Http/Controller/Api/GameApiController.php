@@ -36,4 +36,24 @@ class GameApiController extends BaseApiController
 
         return $this->response($games);
     }
+
+    #[Route('/{id}', name: 'api.game.getById', methods: ['GET'])]
+    public function getById(int $id): Response
+    {
+        $traceId = Uuid::v4()->toRfc4122();
+
+        $this->logger->debug('[api.game.getById] - BEGIN - ID: {id} - TraceID: {traceId}', [
+            'traceId' => $traceId,
+            'id' => $id
+        ]);
+
+        $game = $this->gameService->getById($id, $traceId);
+
+        $this->logger->debug('[api.game.getById] - END - Response: {games} - TraceID: {traceId}', [
+            'traceId' => $traceId,
+            'game' => $this->serializer->serialize($game, 'json')
+        ]);
+
+        return $this->response($game);
+    }
 }

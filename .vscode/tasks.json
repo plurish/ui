@@ -4,7 +4,7 @@
         {
             "label": "compose-up",
             "command": "docker",
-            "args": ["compose", "up"],
+            "args": ["compose", "up", "--build", "-d"],
             "type": "shell"
         },
         {
@@ -12,6 +12,6 @@
             "command": "docker",
             "args": ["compose", "down"],
             "type": "shell"
-        },
+        }
     ]
 }

@@ -5,7 +5,7 @@
                 @click="showSidebar = !showSidebar"
             ></v-app-bar-nav-icon>
 
-            <v-app-bar-title class="text-2xl">
+            <v-app-bar-title class="text-2xl font-bold">
                 <Link href="/">Plurish</Link>
             </v-app-bar-title>
 
