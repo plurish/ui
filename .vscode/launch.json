@@ -1,0 +1,32 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "pathMappings": {
+        "/var/www": "${workspaceFolder}"
+      }
+    },
+    {
+      "name": "Start",
+      "request": "launch",
+      "preLaunchTask": "compose-up",
+	  "type": "node"
+    },
+	{
+      "name": "Stop",
+      "request": "launch",
+      "preLaunchTask": "compose-down",
+	  "type": "node"
+    },
+  ],
+  "compounds": [
+    {
+      "name": "Start & Debug",
+      "configurations": ["Start", "Debug"]
+    }
+  ]
+}
