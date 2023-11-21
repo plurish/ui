@@ -6,6 +6,6 @@ use App\DTO\Response\ResponseDTO;
 
 interface GameServiceInterface
 {
-    public function get(?int $max, string $traceId): ResponseDTO;
+    public function get(?int $limit, string $traceId): ResponseDTO;
     public function getById(int $id, string $traceId): ResponseDTO;
 }

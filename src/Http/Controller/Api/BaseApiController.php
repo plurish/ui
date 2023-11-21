@@ -2,7 +2,7 @@
 
 namespace App\Http\Controller\Api;
 
-use DTO\Response\ResponseDTO;
+use App\DTO\Response\ResponseDTO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 

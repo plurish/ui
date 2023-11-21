@@ -22,7 +22,9 @@ class HomeController extends BaseViewController
     #[Route('/home', name: 'home.index (/home)')]
     public function index(): Response
     {
-        $games = $this->gameService->get(70, Uuid::v4()->toRfc4122());
+        $traceId = Uuid::v4()->toRfc4122();
+
+        $games = $this->gameService->get(limit: 70, traceId: $traceId);
 
         return $this->inertia
             ->render('Home', ['games' => $games?->data])

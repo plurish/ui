@@ -56,7 +56,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Link } from '@inertiajs/vue3';
-import { useTheme } from 'vuetify/lib/framework.mjs';
+import { useTheme } from 'vuetify';
 
 export default /*#__PURE__*/ defineComponent({
     setup() {

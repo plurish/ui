@@ -20,19 +20,19 @@ class FreeGameService implements GameServiceInterface
     /**
      * @return ResponseDTO<GamePartialDTO>
      */
-    public function get(?int $max, string $traceId): ResponseDTO
+    public function get(?int $limit, string $traceId): ResponseDTO
     {
         try {
             $games = $this->gameRepository->getAll();
 
-            if ($max)
-                $games = array_slice($games, 0, $max);
+            if ($limit)
+                $games = array_slice($games, 0, $limit);
 
             shuffle($games);
 
             return ResponseFactory::ok(data: $games);
         } catch (\Exception $ex) {
-            $this->logger->error('[GameService.getAll] - {exception} - TraceID: {traceId}', [
+            $this->logger->error('[GameService.get] - {exception} - TraceID: {traceId}', [
                 'exception' => $ex,
                 'traceId' => $traceId
             ]);
@@ -48,7 +48,7 @@ class FreeGameService implements GameServiceInterface
 
             return ResponseFactory::ok(data: $game);
         } catch (\Exception $ex) {
-            $this->logger->error('[GameService.getAll] - {exception} - TraceID: {traceId}', [
+            $this->logger->error('[GameService.getById] - {exception} - TraceID: {traceId}', [
                 'exception' => $ex,
                 'traceId' => $traceId
             ]);

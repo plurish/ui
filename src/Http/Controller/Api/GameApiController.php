@@ -21,13 +21,13 @@ class GameApiController extends BaseApiController
     }
 
     #[Route('/', name: 'api.game.get', methods: ['GET'])]
-    public function get(#[MapQueryParameter] ?int $max): Response
+    public function get(#[MapQueryParameter] ?int $limit): Response
     {
         $traceId = Uuid::v4()->toRfc4122();
 
         $this->logger->debug('[api.game.get] - BEGIN - TraceID: {traceId}', ['traceId' => $traceId]);
 
-        $games = $this->gameService->get($max, $traceId);
+        $games = $this->gameService->get($limit, $traceId);
 
         $this->logger->debug('[api.game.get] - END - Response: {games} - TraceID: {traceId}', [
             'traceId' => $traceId,
@@ -47,13 +47,13 @@ class GameApiController extends BaseApiController
             'id' => $id
         ]);
 
-        $game = $this->gameService->getById($id, $traceId);
+        $response = $this->gameService->getById($id, $traceId);
 
-        $this->logger->debug('[api.game.getById] - END - Response: {games} - TraceID: {traceId}', [
+        $this->logger->debug('[api.game.getById] - END - Response: {response} - TraceID: {traceId}', [
             'traceId' => $traceId,
-            'game' => $this->serializer->serialize($game, 'json')
+            'response' => $this->serializer->serialize($response, 'json')
         ]);
 
-        return $this->response($game);
+        return $this->response($response);
     }
 }
