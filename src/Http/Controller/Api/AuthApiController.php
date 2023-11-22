@@ -6,6 +6,7 @@ use App\DTO\Request\SignUpRequestDTO;
 use App\Http\Controller\Api\BaseApiController;
 use App\Service\Interface\AuthServiceInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 use Symfony\Component\Routing\Annotation\Route;
@@ -39,6 +40,24 @@ class AuthApiController extends BaseApiController
             'response' => $this->serializer->serialize($response, 'json'),
             'traceId' => $traceId
         ]);
+
+        return $this->response($response);
+    }
+
+    #[Route('/signin', name: 'api.auth.signin', methods: ['POST'])]
+    public function signin()
+    {
+    }
+
+    #[Route('/signout', name: 'api.auth.signout', methods: ['DELETE'])]
+    public function signout()
+    {
+    }
+
+    #[Route('/whoami', name: 'api.auth.whoami', methods: ['GET'])]
+    public function whoami(Request $request): Response
+    {
+        $response = $this->authService->getAuthenticatedUser($request);
 
         return $this->response($response);
     }
