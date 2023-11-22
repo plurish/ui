@@ -3,9 +3,9 @@
 namespace App\DTO\Request;
 
 use Symfony\Component\Serializer\Annotation\SerializedName;
-use Symfony\Component\Validator\Constraints\{NotBlank, Email, IsTrue, Length};
+use Symfony\Component\Validator\Constraints\{NotBlank, Length};
 
-class SignUpRequestDTO
+class SignInRequestDTO
 {
     public function __construct(
     #[NotBlank(message: 'O username deve ser preenchido')]
@@ -17,21 +17,12 @@ class SignUpRequestDTO
     )]
         public readonly string $username,
 
-    #[NotBlank(message: 'O e-mail deve ser preenchido')]
-    #[Email(message: 'Endereço de e-mail inválido')]
-        public readonly string $email,
-
     #[NotBlank(message: 'A senha deve ser preenchida')]
     #[Length(min: 2, minMessage: 'A senha não pode conter menos de 4 caracteres')]
         public readonly string $password,
 
-    #[NotBlank(message: 'A confirmação de senha deve ser preenchida')]
-    #[SerializedName('password_confirmation')]
-        public readonly string $passwordConfirmation,
-
-    #[IsTrue(message: 'Não é possível se cadastrar sem aceitar os termos de uso')]
-    #[SerializedName('terms_accepted')]
-        public readonly bool $termsAccepted,
+    #[SerializedName('remember_me')]
+        public readonly bool $rememberMe,
     ) {
     }
 }

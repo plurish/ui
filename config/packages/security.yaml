@@ -19,6 +19,15 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            custom_authenticator: App\Http\Guard\AuthGuard
+            logout:
+                path: api.auth.logout
+                target: home.index
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 259200 # seconds (3 days)
+                path: /
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall

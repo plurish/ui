@@ -2,16 +2,16 @@
 
 namespace App\Http\Controller\Api;
 
-use App\DTO\Request\SignUpRequestDTO;
-use App\Http\Controller\Api\BaseApiController;
-use App\Service\Interface\AuthServiceInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Uid\Uuid;
+use App\DTO\Request\SignUpRequestDTO;
 use Symfony\Component\HttpFoundation\Request;
+use App\Http\Controller\Api\BaseApiController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
+use App\Service\Interface\AuthServiceInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
-use Symfony\Component\Uid\Uuid;
+use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 
 #[Route('/api/auth')]
 class AuthApiController extends BaseApiController
@@ -47,11 +47,16 @@ class AuthApiController extends BaseApiController
     #[Route('/signin', name: 'api.auth.signin', methods: ['POST'])]
     public function signin()
     {
+        /* método vazio, pois o App\Http\Guard\AuthGuard intercepta 
+           este endpoint e realiza a autenticação */
     }
 
     #[Route('/signout', name: 'api.auth.signout', methods: ['DELETE'])]
     public function signout()
     {
+        /* método vazio, pois o symfony automaticamente limpa
+         a session quando este endpoint é chamado, pelo modo como 
+         foi configurado o config/packages/security.yaml */
     }
 
     #[Route('/whoami', name: 'api.auth.whoami', methods: ['GET'])]

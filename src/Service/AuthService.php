@@ -2,18 +2,18 @@
 
 namespace App\Service;
 
-use App\DTO\Request\SignUpRequestDTO;
-use App\DTO\Response\ResponseDTO;
 use App\DTO\UserDTO;
 use App\Entity\UserEntity;
-use App\Factory\ResponseFactory;
-use App\Repository\UserRepository;
-use App\Service\Interface\AuthServiceInterface;
 use Psr\Log\LoggerInterface;
+use App\Factory\ResponseFactory;
+use App\DTO\Response\ResponseDTO;
+use App\Repository\UserRepository;
+use App\DTO\Request\SignUpRequestDTO;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
-use Symfony\Component\Security\Http\SecurityRequestAttributes;
+use App\Service\Interface\AuthServiceInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AuthService implements AuthServiceInterface
 {
@@ -22,6 +22,7 @@ class AuthService implements AuthServiceInterface
         private readonly ValidatorInterface $validator,
         private readonly UserRepository $userRepository,
         private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly TokenStorageInterface $tokenStorage,
     ) {
     }
 
@@ -70,15 +71,11 @@ class AuthService implements AuthServiceInterface
 
     public function getAuthenticatedUser(Request $request): ResponseDTO
     {
-        $sessionUser = $request->getSession()->get(SecurityRequestAttributes::LAST_USERNAME);
+        $sessionUser = $this->tokenStorage->getToken()?->getUser();
 
-        $user = new UserDTO(
-            $sessionUser['id'] ?? 0,
-            $sessionUser['username'] ?? 'guest',
-            $sessionUser['email'] ?? '',
-            $sessionUser['roles'] ?? [],
-        );
+        if (!$sessionUser)
+            return ResponseFactory::unauthorized('Usuário não autenticado');
 
-        return ResponseFactory::ok(data: $user);
+        return ResponseFactory::ok(data: $sessionUser);
     }
 }

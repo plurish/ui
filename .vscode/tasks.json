@@ -4,7 +4,7 @@
         {
             "label": "compose-up",
             "command": "docker",
-            "args": ["compose", "up", "--build", "-d"],
+            "args": ["compose", "up", "--build"],
             "type": "shell"
         },
         {
