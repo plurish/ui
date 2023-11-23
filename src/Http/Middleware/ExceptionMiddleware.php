@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Factory\ResponseFactory;
+use App\Kernel;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,8 +30,12 @@ class ExceptionMiddleware
         $request = $event->getRequest();
 
         if (strpos($request->getRequestUri(), 'api')) {
+            $errorMessage = Kernel::CUSTOM_EXCEPTION_CODE == $exception->getCode()
+                ? $exception->getMessage()
+                : 'Desculpe! Um erro inesperado ocorreu';
+
             $responseContent = $this->serializer->serialize(
-                ResponseFactory::internalServerError('Desculpe! Um erro inesperado ocorreu'),
+                ResponseFactory::internalServerError($errorMessage),
                 'json'
             );
 

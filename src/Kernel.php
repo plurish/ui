@@ -8,4 +8,6 @@ use Symfony\Component\HttpKernel\Kernel as BaseKernel;
 class Kernel extends BaseKernel
 {
     use MicroKernelTrait;
+
+    const CUSTOM_EXCEPTION_CODE = 10000;
 }
