@@ -27,8 +27,8 @@ class AuthGuard extends Authenticator
 {
     use TargetPathTrait;
 
-    private readonly string $loginApiUrl;
-    private readonly string $loginPageUrl;
+    private readonly string $signinApiUrl;
+    private readonly string $signinPageUrl;
 
     public function __construct(
         private readonly UrlGeneratorInterface $urlGenerator,
@@ -36,8 +36,8 @@ class AuthGuard extends Authenticator
         private readonly ValidatorInterface $validator,
         private readonly TokenStorageInterface $tokenStorage,
     ) {
-        $this->loginApiUrl = $urlGenerator->generate('api.auth.signin');
-        $this->loginPageUrl = $urlGenerator->generate('auth.signin');
+        $this->signinApiUrl = $urlGenerator->generate('api.auth.signin');
+        $this->signinPageUrl = $urlGenerator->generate('auth.signin');
     }
 
     public function authenticate(Request $request): Passport
@@ -65,7 +65,6 @@ class AuthGuard extends Authenticator
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        // USAR TOKEN PARA TENTAR PEGAR USER LOGADO
         $targetPath = $this->getTargetPath($request->getSession(), $firewallName);
 
         /** @var UserEntity */
@@ -85,16 +84,16 @@ class AuthGuard extends Authenticator
 
         // TODO: tratar mensagem de erro
 
-        return new RedirectResponse($this->loginPageUrl);
+        return new RedirectResponse($this->signinPageUrl);
     }
 
     public function start(Request $request, AuthenticationException $authException = null): Response
     {
-        return new RedirectResponse($this->loginPageUrl);
+        return new RedirectResponse($this->signinPageUrl);
     }
 
     public function getLoginUrl(Request $request): string
     {
-        return $this->loginApiUrl;
+        return $this->signinApiUrl;
     }
 }

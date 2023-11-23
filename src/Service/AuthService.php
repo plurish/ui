@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\DTO\UserDTO;
 use App\Entity\UserEntity;
 use Psr\Log\LoggerInterface;
 use App\Factory\ResponseFactory;
@@ -70,11 +71,19 @@ class AuthService implements AuthServiceInterface
 
     public function getAuthenticatedUser(Request $request): ResponseDTO
     {
+        /** @var UserEntity */
         $user = $this->tokenStorage->getToken()?->getUser();
 
         if (!$user)
             return ResponseFactory::unauthorized('Usuário não autenticado');
 
-        return ResponseFactory::ok(data: $user);
+        return ResponseFactory::ok(
+            'Usuário está autenticado corretamente',
+            new UserDTO(
+                $user->getUsername(),
+                $user->getEmail(),
+                $user->getRoles()
+            )
+        );
     }
 }

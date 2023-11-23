@@ -37,3 +37,18 @@ sem mostrar erros:
 sudo docker cp plurish-ui:/var/www/vendor ~/dev/plurish/ui
 sudo docker cp plurish-ui:/var/www/node_modules ~/dev/plurish/ui
 ```
+
+## Uso do banco de Auth
+
+Como, no momento do desenvolvimento, não é usado um banco de cloud, mas
+sim de um container local, a versão do banco da máquina de um dev
+pode estar incompatível com a do outro.
+
+Por enquanto, um workaround seria o de executar as migrations
+logo antes de começar a usar a aplicação localmente. Isso pode ser feito
+executando os seguintes comandos, por dentro do container:
+
+```bash
+symfony console doctrine:database:create
+symfony console doctrine:migrations:migrate
+```
