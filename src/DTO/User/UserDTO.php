@@ -1,13 +1,15 @@
 <? declare(strict_types=1);
 
-namespace App\DTO;
+namespace App\DTO\User;
 
 class UserDTO
 {
     public function __construct(
+        public readonly int $id = 0,
         public readonly string $username,
         public readonly string $email,
-        public readonly array $roles,
+        public readonly bool $active,
+        public readonly array $roles = ['ROLE_PLAYER'],
     ) {
     }
 }

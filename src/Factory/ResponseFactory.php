@@ -99,6 +99,7 @@ class ResponseFactory
      */// 500 - 599
     public static function internalServerError(?string $message = ''): ResponseDTO
     {
+        // TODO: aceitar exception, tratá-la e retornar sua mensagem
         return self::create(Response::HTTP_INTERNAL_SERVER_ERROR, $message);
     }
 }

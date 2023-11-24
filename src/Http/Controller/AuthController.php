@@ -15,7 +15,7 @@ class AuthController extends BaseViewController
         return $this->inertia->render('Auth/SignUp');
     }
 
-    #[Route('/signin', name: 'auth.signin', methods: ['GET'])]
+    #[Route('/signin', name: 'auth.signin')]
     public function signin(AuthenticationUtils $authUtils): Response
     {
         if ($this->getUser())

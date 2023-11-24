@@ -19,6 +19,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
  * @method UserEntity|null findOneBy(array $criteria, array $orderBy = null)
  * @method UserEntity[]    findAll()
  * @method UserEntity[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method ?UserEntity     getOne(string $username, ?string $email = '')
+ * @method bool            create(UserEntity $user)
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface, UserRepositoryInterface
 {
@@ -43,6 +45,25 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function create(UserEntity $user): bool
     {
         $this->_em->persist($user);
+
+        $this->_em->flush();
+
+        return true;
+    }
+
+    public function update(UserEntity $user): bool
+    {
+        $this->_em->flush();
+
+        return true;
+    }
+
+    public function delete(int $id): bool
+    {
+        $user = $this->_em->getReference(UserEntity::class, $id);
+
+        $this->_em->remove($user);
+
         $this->_em->flush();
 
         return true;

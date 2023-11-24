@@ -2,15 +2,17 @@
 
 namespace App\Service;
 
-use App\DTO\UserDTO;
 use App\Entity\UserEntity;
 use Psr\Log\LoggerInterface;
 use App\Factory\ResponseFactory;
+use App\DTO\User\UserPartialDTO;
 use App\DTO\Response\ResponseDTO;
 use App\Repository\UserRepository;
 use App\DTO\Request\SignUpRequestDTO;
+use App\DTO\User\UserDTO;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\Interface\AuthServiceInterface;
+use App\Service\Interface\UserServiceInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -20,8 +22,7 @@ class AuthService implements AuthServiceInterface
     public function __construct(
         private readonly LoggerInterface $logger,
         private readonly ValidatorInterface $validator,
-        private readonly UserRepository $userRepository,
-        private readonly UserPasswordHasherInterface $passwordHasher,
+        private readonly UserServiceInterface $userService,
         private readonly TokenStorageInterface $tokenStorage,
     ) {
     }
@@ -39,26 +40,11 @@ class AuthService implements AuthServiceInterface
             if (!$passwordMatches)
                 return ResponseFactory::unprocessableEntity('A senha deve ser confirmada corretamente');
 
-            $emailAndUsernameAvailable = $this->userRepository->getOne(
-                $request->username,
-                $request->email
-            ) === null;
+            $user = new UserDTO(0, $request->username, $request->email, true);
 
-            if (!$emailAndUsernameAvailable)
-                return ResponseFactory::unprocessableEntity('Username e/ou endereço de e-mail já em uso');
+            $result = $this->userService->create($user, $request->password, $traceId);
 
-            $user = new UserEntity(
-                $request->username,
-                $request->email,
-                $request->password,
-                active: true,
-            );
-
-            $user->setPassword($this->passwordHasher->hashPassword($user, $request->password));
-
-            $result = $this->userRepository->create($user);
-
-            return ResponseFactory::ok('Cadastro realizado com sucesso!', $result);
+            return ResponseFactory::ok('Cadastro realizado com sucesso!', $result->data);
         } catch (\Exception $ex) {
             $this->logger->error('[AuthService.signup] - {exception} - TraceID: {traceId}', [
                 'exception' => $ex,
@@ -79,7 +65,7 @@ class AuthService implements AuthServiceInterface
 
         return ResponseFactory::ok(
             'Usuário está autenticado corretamente',
-            new UserDTO(
+            new UserPartialDTO(
                 $user->getUsername(),
                 $user->getEmail(),
                 $user->getRoles()

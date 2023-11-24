@@ -29,21 +29,20 @@ class ExceptionMiddleware
 
         $request = $event->getRequest();
 
-        if (strpos($request->getRequestUri(), 'api')) {
-            $errorMessage = Kernel::CUSTOM_EXCEPTION_CODE == $exception->getCode()
-                ? $exception->getMessage()
-                : 'Desculpe! Um erro inesperado ocorreu';
+        $isApiRequest = strpos($request->getRequestUri(), 'api');
+
+        if ($isApiRequest) {
+            // TODO: retornar status code específico da exception
+            $errorMessage = $exception->getMessage();
 
             $responseContent = $this->serializer->serialize(
                 ResponseFactory::internalServerError($errorMessage),
                 'json'
             );
 
-            $response = $event->getResponse() ?? new Response();
+            $response = $event->getResponse() ?? new Response(status: Response::HTTP_INTERNAL_SERVER_ERROR);
 
-            $response
-                ->setContent($responseContent)
-                ->setStatusCode(Response::HTTP_INTERNAL_SERVER_ERROR);
+            $response->setContent($responseContent);
 
             $event->setResponse($response);
         }

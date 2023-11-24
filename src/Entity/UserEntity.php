@@ -28,8 +28,8 @@ class UserEntity implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(nullable: false, options: ['default' => false])]
     private bool $active = false;
 
-    #[ORM\Column(nullable: false)]
-    private array $roles = ['ROLE_PLAYER'];
+    #[ORM\Column(nullable: false, options: ['default' => ['ROLE_PLAYER']])]
+    private array $roles;
 
     /**
      * @var string The hashed password
@@ -109,21 +109,15 @@ class UserEntity implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         if (!count($this->roles))
-            $this->addRole(RoleEnum::ROLE_PLAYER);
+            $this->setRoles([(string) RoleEnum::ROLE_PLAYER]);
 
         return $this->roles;
     }
 
-    public function setRoles(array $roles): static
+    /** @param string[] $roles */
+    public function setRoles(array $roles): self
     {
         $this->roles = $roles;
-
-        return $this;
-    }
-
-    public function addRole(RoleEnum $role): static
-    {
-        $this->roles[] = (string) $role;
 
         return $this;
     }

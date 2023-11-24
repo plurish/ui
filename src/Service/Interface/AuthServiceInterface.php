@@ -4,7 +4,7 @@ namespace App\Service\Interface;
 
 use App\DTO\Request\SignUpRequestDTO;
 use App\DTO\Response\ResponseDTO;
-use App\DTO\UserDTO;
+use App\DTO\User\UserPartialDTO;
 use Symfony\Component\HttpFoundation\Request;
 
 interface AuthServiceInterface
@@ -13,6 +13,6 @@ interface AuthServiceInterface
     public function signup(SignUpRequestDTO $request, string $traceId): ResponseDTO;
 
 
-    /** @return ResponseDTO<UserDTO> */
+    /** @return ResponseDTO<UserPartialDTO> */
     public function getAuthenticatedUser(Request $request): ResponseDTO;
 }

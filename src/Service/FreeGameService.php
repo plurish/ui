@@ -2,12 +2,12 @@
 
 namespace App\Service;
 
-use App\Factory\ResponseFactory;
-use App\Repository\Interface\GameRepositoryInterface;
-use App\Service\Interface\GameServiceInterface;
-use App\DTO\Response\ResponseDTO;
-use App\DTO\Game\GamePartialDTO;
 use Psr\Log\LoggerInterface;
+use App\DTO\Game\GamePartialDTO;
+use App\Factory\ResponseFactory;
+use App\DTO\Response\ResponseDTO;
+use App\Service\Interface\GameServiceInterface;
+use App\Repository\Interface\GameRepositoryInterface;
 
 class FreeGameService implements GameServiceInterface
 {
