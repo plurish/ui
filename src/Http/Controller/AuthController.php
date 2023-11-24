@@ -12,10 +12,13 @@ class AuthController extends BaseViewController
     #[Route('/signup', name: 'auth.signup', methods: ['GET'])]
     public function signup(): Response
     {
+        if ($this->getUser())
+            return $this->redirectToRoute('home.index');
+
         return $this->inertia->render('Auth/SignUp');
     }
 
-    #[Route('/signin', name: 'auth.signin')]
+    #[Route('/signin', name: 'auth.signin', methods: ['GET'])]
     public function signin(AuthenticationUtils $authUtils): Response
     {
         if ($this->getUser())

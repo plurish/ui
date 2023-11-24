@@ -42,9 +42,7 @@ class AuthService implements AuthServiceInterface
 
             $user = new UserDTO(0, $request->username, $request->email, true);
 
-            $result = $this->userService->create($user, $request->password, $traceId);
-
-            return ResponseFactory::ok('Cadastro realizado com sucesso!', $result->data);
+            return $this->userService->create($user, $request->password, $traceId);
         } catch (\Exception $ex) {
             $this->logger->error('[AuthService.signup] - {exception} - TraceID: {traceId}', [
                 'exception' => $ex,

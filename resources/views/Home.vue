@@ -5,7 +5,7 @@
         <v-carousel-item v-for="game in games?.slice(0, 5)" :key="game.id">
             <v-sheet class="h-full">
                 <div
-                    class="flex justify-center align-center h-full bg-no-repeat bg-center bg-cover"
+                    class="flex justify-center align-center h-full bg-no-repeat bg-center bg-contain"
                     :style="{
                         'background-image': `url(${game.cover})`,
                     }"
@@ -18,7 +18,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Head } from '@inertiajs/vue3';
-import { GamePartial } from '@/assets/ts/dtos/game-partial.dto';
+import { GamePartial } from '@/assets/ts/dtos';
 
 export default defineComponent({
     components: { Head },

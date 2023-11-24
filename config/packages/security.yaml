@@ -21,7 +21,7 @@ security:
             provider: app_user_provider
             custom_authenticator: App\Http\Guard\AuthGuard
             logout:
-                path: api.auth.logout
+                path: api.auth.signout
                 target: home.index
 
             remember_me:

@@ -83,8 +83,9 @@ class AuthGuard extends Authenticator
             $request->getSession()->set(SecurityRequestAttributes::AUTHENTICATION_ERROR, $exception);
 
         // TODO: tratar mensagem de erro
+        $content = ResponseFactory::unauthorized($exception->getMessage());
 
-        return new RedirectResponse($this->signinPageUrl);
+        return new Response($this->serializer->serialize($content, 'json'), $content->status);
     }
 
     public function start(Request $request, AuthenticationException $authException = null): Response

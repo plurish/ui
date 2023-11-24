@@ -1,5 +1,5 @@
 <template>
-    <Head title="Iniciar sessão" />
+    <Head title="Cadastro" />
 
     <div class="h-screen flex align-center justify-center">
         <v-card
@@ -9,7 +9,7 @@
             min-width="400"
             rounded="lg"
         >
-            <v-form @submit.prevent="signin" ref="form">
+            <v-form @submit.prevent="signup" ref="form">
                 <v-alert
                     v-if="alert.text"
                     v-bind="alert"
@@ -28,7 +28,17 @@
                     :rules="validations.username"
                     :disabled="loading"
                     class="mb-4"
-                    required
+                ></v-text-field>
+
+                <v-text-field
+                    v-model="form.email"
+                    density="compact"
+                    label="E-mail"
+                    prepend-inner-icon="mdi-account"
+                    variant="outlined"
+                    :rules="validations.email"
+                    :disabled="loading"
+                    class="mb-4"
                 ></v-text-field>
 
                 <v-text-field
@@ -44,14 +54,29 @@
                     @click:append-inner="showPassword = !showPassword"
                     :rules="validations.password"
                     :disabled="loading"
-                    required
+                ></v-text-field>
+
+                <v-text-field
+                    v-model="form.password_confirmation"
+                    :append-inner-icon="
+                        showPassword ? 'mdi-eye-off' : 'mdi-eye'
+                    "
+                    :type="showPassword ? 'text' : 'password'"
+                    density="compact"
+                    label="Confirmar senha"
+                    prepend-inner-icon="mdi-lock-outline"
+                    variant="outlined"
+                    @click:append-inner="showPassword = !showPassword"
+                    :rules="passConfirmationValidations"
+                    :disabled="loading"
                 ></v-text-field>
 
                 <v-checkbox
-                    v-model="form.remember_me"
-                    label="Manter-me conectado"
+                    v-model="form.terms_accepted"
+                    label="Aceito as condições e termos de uso"
                     color="primary"
                     hide-details
+                    required
                 ></v-checkbox>
 
                 <v-btn
@@ -63,7 +88,7 @@
                     type="submit"
                     :disabled="loading"
                 >
-                    <span v-if="!loading">Iniciar sessão</span>
+                    <span v-if="!loading">Cadastrar</span>
 
                     <v-progress-circular
                         v-if="loading"
@@ -76,9 +101,9 @@
                 <v-card-text class="text-center">
                     <Link
                         class="text-blue text-decoration-none"
-                        href="/auth/signup"
+                        href="/auth/signin"
                     >
-                        Ainda não tem uma conta?
+                        Já possui uma conta?
                         <v-icon icon="mdi-chevron-right"></v-icon>
                     </Link>
                 </v-card-text>
@@ -91,7 +116,7 @@
 import { DefineComponent, PropType, defineComponent } from 'vue';
 import { VuetifyAlert } from '@/assets/ts/utils/vuetify-alert';
 import axios, { AxiosResponse, AxiosError } from 'axios';
-import { Head, Link } from '@inertiajs/vue3';
+import { Head, Link, router } from '@inertiajs/vue3';
 import { SubmitEventPromise } from 'vuetify';
 import Logo from '@/components/Logo.vue';
 import validations from '@/assets/ts/utils/form-validations';
@@ -118,18 +143,36 @@ export default defineComponent({
         } as VuetifyAlert,
         form: {
             username: '',
+            email: '',
             password: '',
-            remember_me: false,
+            password_confirmation: '',
+            terms_accepted: false,
         },
         showPassword: false,
         validations: {
             username: validations.username,
+            email: validations.email,
             password: validations.password,
+            terms_accepts: [
+                (value: boolean) =>
+                    value ||
+                    'Os termos de uso devem ser aceitos, para prosseguir',
+            ],
         },
     }),
 
+    computed: {
+        passConfirmationValidations() {
+            return [
+                (confirmation: string) =>
+                    confirmation === this.form.password ||
+                    'A confirmação deve coincidir com a senha',
+            ];
+        },
+    },
+
     methods: {
-        async signin(event: SubmitEventPromise) {
+        async signup(event: SubmitEventPromise) {
             const error = {
                 occurred: false,
                 message: '',
@@ -140,22 +183,29 @@ export default defineComponent({
 
                 if (!form.isValid) return;
 
+                if (this.form.password !== this.form.password_confirmation) {
+                    error.occurred = true;
+                    error.message = '';
+                }
+
                 this.loading = true;
 
                 const { data, status }: AxiosResponse = await axios.post(
-                    '/api/auth/signin',
+                    '/api/auth/signup',
                     this.form,
                 );
 
-                if ((status >= 200 && status <= 299) || status == 302) {
+                if (status == 201) {
+                    router.visit('/auth/signin');
+
                     this.alert = {
                         title: 'Sucesso!',
-                        text: 'Sessão iniciada com sucesso!',
+                        text:
+                            data?.message ??
+                            'Você será redirecionado para o login',
                         type: 'success',
                         closable: true,
                     };
-
-                    location.reload();
                 } else {
                     const responseWrapper = data?.response?.data;
 
@@ -180,7 +230,7 @@ export default defineComponent({
                         title: 'Algo deu errado',
                         text:
                             error.message ||
-                            'Algo deu errado ao tentar iniciar a sessão. Recarregue a página ou tente novamente',
+                            'Algo deu errado ao tentar lhe cadastrar. Recarregue a página ou tente novamente',
                         type: 'error',
                         closable: true,
                     };

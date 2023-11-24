@@ -90,7 +90,7 @@ class UserService implements UserServiceInterface
                 $user->setPassword($hashedPassword)
             );
 
-            return ResponseFactory::ok('Criação realizada com sucesso!', $result);
+            return ResponseFactory::created('Cadastro realizado com sucesso!', $result);
         } catch (\Exception $ex) {
             $this->logger->error('[UserService.store] - User: {user}. Exception: {exception} - TraceID: {traceId}', [
                 'user' => $this->serializer->serialize($user, 'json'),

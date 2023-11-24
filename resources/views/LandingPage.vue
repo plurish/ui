@@ -27,34 +27,29 @@ export default defineComponent({
     components: { Head },
 
     created() {
-        let sec = document.querySelectorAll('section');
-        let links = document.querySelectorAll('nav a');
-
-        window.onscroll = () => {
-            sec.forEach((section) => {
-                let top = window.scrollY;
-                let offset = section.offsetTop - 80;
-                let height = section.offsetHeight;
-                let id = section.getAttribute('id');
-
-                if (top >= offset && top < offset + height) {
-                    links.forEach((link) => {
-                        link.classList.remove('active');
-
-                        document
-                            .querySelector('nav a[href*=' + id + ']')
-                            ?.classList.add('active');
-                    });
-                }
-            });
-        };
+        // let sec = document.querySelectorAll('section');
+        // let links = document.querySelectorAll('nav a');
+        // window.onscroll = () => {
+        //     sec.forEach((section) => {
+        //         let top = window.scrollY;
+        //         let offset = section.offsetTop - 80;
+        //         let height = section.offsetHeight;
+        //         let id = section.getAttribute('id');
+        //         if (top >= offset && top < offset + height) {
+        //             links.forEach((link) => {
+        //                 link.classList.remove('active');
+        //                 document
+        //                     .querySelector('nav a[href*=' + id + ']')
+        //                     ?.classList.add('active');
+        //             });
+        //         }
+        //     });
+        // };
     },
 });
 </script>
 
 <style lang="scss" scoped>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
-
 $colors: (
     primary: #222831,
     secondary: #52c7ce,
@@ -66,7 +61,6 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Poppins', sans-serif;
     scroll-behavior: smooth;
     background: #0d1117;
     background: linear-gradient(
