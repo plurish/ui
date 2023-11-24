@@ -7,16 +7,16 @@ use Symfony\Component\Serializer\Annotation\SerializedName;
 class GameDTO extends GamePartialDTO
 {
     public function __construct(
-        int $id,
-        string $title,
-        string $cover,
-        ?string $backgroundImage,
-        string $description,
-        string $genre,
-        string $publisher,
-        string $developer,
-        string $platform,
-        array $videos,
+        public readonly int $id,
+        public readonly string $title,
+        public readonly string $cover,
+        public readonly ?string $backgroundImage,
+        public readonly string $description,
+        public readonly string $genre,
+        public readonly string $publisher,
+        public readonly string $developer,
+        public readonly string $platform,
+        public readonly array $videos,
     #[SerializedName('game_url')]
         public readonly string $gameUrl,
 
@@ -29,17 +29,5 @@ class GameDTO extends GamePartialDTO
         /** @var string[] */
         public readonly array $screenshots,
     ) {
-        parent::__construct(
-            $id,
-            $title,
-            $cover,
-            $backgroundImage,
-            $description,
-            $genre,
-            $publisher,
-            $developer,
-            $platform,
-            $videos
-        );
     }
 }

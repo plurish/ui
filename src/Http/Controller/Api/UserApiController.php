@@ -16,7 +16,7 @@ use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 
 #[Route('/api/user')]
-class UserController extends BaseApiController
+class UserApiController extends BaseApiController
 {
     public function __construct(
         private readonly LoggerInterface $logger,
