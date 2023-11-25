@@ -2,17 +2,32 @@
 
 namespace App\Http\Controller;
 
+use App\Service\Interface\GameServiceInterface;
+use Psr\Log\LoggerInterface;
+use Rompetomp\InertiaBundle\Service\InertiaInterface;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Uid\Uuid;
 
 class HomeController extends BaseViewController
 {
+    public function __construct(
+        protected readonly InertiaInterface $inertia,
+        protected readonly LoggerInterface $logger,
+        private readonly GameServiceInterface $gameService,
+    ) {
+    }
+
     #[Route('/', name: 'home.index')]
-    #[Route('/home', name: 'home.index.home')]
+    #[Route('/home', name: 'home.index (/home)')]
     public function index(): Response
     {
-        // TODO: get games from IGDB API
+        $traceId = Uuid::v4()->toRfc4122();
 
-        return $this->inertia->render('Home');
+        $games = $this->gameService->get(limit: 70, traceId: $traceId);
+
+        return $this->inertia
+            ->render('Home', ['games' => $games?->data])
+            ->setStatusCode($games->status);
     }
 }

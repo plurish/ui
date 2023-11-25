@@ -4,14 +4,30 @@ security:
         Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
     # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\UserEntity
+                property: username
+
+    role_hierarchy:
+        ROLE_ADMIN: ROLE_PLAYER
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
         main:
             lazy: true
-            provider: users_in_memory
+            provider: app_user_provider
+            custom_authenticator: App\Http\Guard\AuthGuard
+            logout:
+                path: api.auth.signout
+                target: home.index
+
+            remember_me:
+                secret: '%kernel.secret%'
+                lifetime: 259200 # seconds (3 days)
+                path: /
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
@@ -23,7 +39,7 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        # - { path: ^/profile, roles: ROLE_PLAYER }
 
 when@test:
     security:

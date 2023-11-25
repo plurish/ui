@@ -4,3 +4,12 @@ controllers:
         namespace: App\Http\Controller
     type: attribute
     trailing_slash_on_root: false
+
+api_controllers:
+    resource:
+        path: ../src/Http/Controller/Api/
+        namespace: App\Http\Controller\Api
+    type: attribute
+    trailing_slash_on_root: false
+    defaults:
+        _format: json
