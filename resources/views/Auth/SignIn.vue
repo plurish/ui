@@ -95,6 +95,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { SubmitEventPromise } from 'vuetify';
 import Logo from '@/components/Logo.vue';
 import validations from '@/assets/ts/utils/form-validations';
+import { ResponseWrapper } from '@/assets/ts/dtos';
 
 export default defineComponent({
     components: { Head, Link, Logo },
@@ -156,9 +157,14 @@ export default defineComponent({
             } catch (e) {
                 console.error(e);
 
-                if (e instanceof AxiosError) {
+                const axiosError = e as AxiosError;
+
+                if (axiosError) {
+                    const response = axiosError?.response
+                        ?.data as ResponseWrapper<boolean> | null;
+
                     const errorMessage: string =
-                        e?.response?.data?.message ?? e.message;
+                        response?.message ?? axiosError.message;
 
                     error.message = errorMessage;
                     error.occurred = true;

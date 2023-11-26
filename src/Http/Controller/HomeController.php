@@ -25,10 +25,10 @@ class HomeController extends BaseViewController
     {
         $traceId = Uuid::v4()->toRfc4122();
 
-        $games = $this->gameService->get(limit: 70, traceId: $traceId);
+        $games = ($this->gameService->getWithCategories($traceId));
 
         return $this->inertia
-            ->render('Home', ['games' => $games?->data])
+            ->render('Home', $games->data)
             ->setStatusCode($games->status);
     }
 }

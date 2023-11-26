@@ -75,7 +75,7 @@
                     v-model="form.terms_accepted"
                     label="Aceito as condições e termos de uso"
                     color="primary"
-                    hide-details
+                    :rules="validations.terms_accepted"
                     required
                 ></v-checkbox>
 
@@ -144,10 +144,11 @@ export default defineComponent({
             username: validations.username,
             email: validations.email,
             password: validations.password,
-            terms_accepts: [
+            terms_accepted: [
                 (value: boolean) =>
-                    value ||
-                    'Os termos de uso devem ser aceitos, para prosseguir',
+                    value
+                        ? true
+                        : 'Os termos de uso devem ser aceitos, para prosseguir',
             ],
         },
     }),
