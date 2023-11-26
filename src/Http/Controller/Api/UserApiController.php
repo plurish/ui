@@ -12,7 +12,6 @@ use App\Service\Interface\UserServiceInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
-use Symfony\Component\HttpKernel\Attribute\MapQueryString;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\HttpKernel\Attribute\MapRequestPayload;
 
@@ -44,7 +43,7 @@ class UserApiController extends BaseApiController
     }
 
     #[Route('/{id}', name: 'api.user.getOne', methods: ['GET'])]
-    public function getOne(int $id, #[MapQueryString] ?string $username, #[MapQueryString] ?string $email): Response
+    public function getOne(int $id, #[MapQueryParameter] ?string $username, #[MapQueryParameter] ?string $email): Response
     {
         $traceId = Uuid::v4()->toRfc4122();
 
