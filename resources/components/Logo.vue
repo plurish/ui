@@ -1,7 +1,7 @@
 <template>
     <Link
         href="/"
-        class="text-2xl lg:text-3xl font-bold transition-all hover:scale-[1.05] font-jetbrains text-primary"
+        class="text-2xl lg:text-3xl font-bold transition-all hover:scale-[1.05] font-jetbrains text-primary bg-secondary rounded-lg inline-block py-1 px-4"
     >
         plurish
     </Link>

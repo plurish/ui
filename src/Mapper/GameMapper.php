@@ -20,8 +20,8 @@ class GameMapper
         $baseUrl = FreeGameRepository::BASE_URL;
 
         $videos = [
-            $baseUrl . '/g/' . $freeGame['id'] . '/videplayback.webm',
-            $baseUrl . '/g/' . $freeGame['id'] . '/videplayback.mp4',
+            $baseUrl . '/g/' . $freeGame['id'] . '/videoplayback.webm',
+            $baseUrl . '/g/' . $freeGame['id'] . '/videoplayback.mp4',
         ];
 
         $backgroundImage = $baseUrl . '/g/' . $freeGame['id'] . '/background.jpg';

@@ -21,12 +21,10 @@
                 prepend-icon="mdi-account-circle"
             ></v-list-item>
 
-            <v-progress-circular
+            <v-skeleton-loader
                 v-else
-                indeterminate
-                color="primary"
-                class="ml-2"
-            ></v-progress-circular>
+                type="list-item-avatar"
+            ></v-skeleton-loader>
 
             <v-divider />
 
@@ -38,14 +36,6 @@
                         value="home"
                     ></v-list-item>
                 </Link>
-
-                <v-list-item
-                    title="Mudar tema"
-                    value="theme"
-                    prepend-icon="mdi-theme-light-dark"
-                    @click="toggleTheme"
-                >
-                </v-list-item>
 
                 <v-list-group
                     v-if="user?.roles.includes('ROLE_ADMIN')"
@@ -70,11 +60,18 @@
                     </Link>
                 </v-list-group>
 
-                <v-progress-circular
+                <v-list-item
+                    title="Mudar tema"
+                    value="theme"
+                    prepend-icon="mdi-theme-light-dark"
+                    @click="toggleTheme"
+                >
+                </v-list-item>
+
+                <v-skeleton-loader
                     v-if="loading"
-                    indeterminate
-                    color="primary"
-                ></v-progress-circular>
+                    type="list-item-avatar"
+                ></v-skeleton-loader>
 
                 <v-list-item
                     @click="signout"
