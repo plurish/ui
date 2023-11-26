@@ -2,15 +2,12 @@
     <Head title="Home" />
 
     <v-carousel cycle interval="4000" height="400" show-arrows="hover">
-        <v-carousel-item v-for="game in games?.slice(0, 5)" :key="game.id">
-            <v-sheet class="h-full">
-                <div
-                    class="flex justify-center align-center h-full bg-no-repeat bg-center bg-contain"
-                    :style="{
-                        'background-image': `url(${game.cover})`,
-                    }"
-                ></div>
-            </v-sheet>
+        <v-carousel-item
+            v-for="game in advertisements?.slice(0, 5)"
+            :key="game.id"
+            :src="game.cover"
+            cover
+        >
         </v-carousel-item>
     </v-carousel>
 </template>
@@ -18,13 +15,17 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import { Head } from '@inertiajs/vue3';
-import { GamePartial } from '@/assets/ts/dtos';
+import { Game, GamePartial } from '@/assets/ts/dtos';
 
 export default defineComponent({
     components: { Head },
 
     props: {
-        games: Array<GamePartial>,
+        advertisements: Array<GamePartial>,
+        new_releases: Array<GamePartial>,
+        trendings: Array<GamePartial>,
+        populars: Array<GamePartial>,
+        recommendeds: Array<GamePartial>,
     },
 });
 </script>

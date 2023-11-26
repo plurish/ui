@@ -17,7 +17,7 @@
                     class="mb-4"
                 />
 
-                <Logo class="flex justify-center align-center mb-6" />
+                <Logo class="flex justify-center align-center mb-8" />
 
                 <v-text-field
                     v-model="form.username"
@@ -75,7 +75,7 @@
                     v-model="form.terms_accepted"
                     label="Aceito as condições e termos de uso"
                     color="primary"
-                    hide-details
+                    :rules="validations.terms_accepted"
                     required
                 ></v-checkbox>
 
@@ -121,17 +121,8 @@ import { SubmitEventPromise } from 'vuetify';
 import Logo from '@/components/Logo.vue';
 import validations from '@/assets/ts/utils/form-validations';
 
-type ErrorProp = Object | null;
-type LastUsernameProp = string | null;
-
 export default defineComponent({
     components: { Head, Link, Logo },
-
-    props: {
-        csrf_token: String,
-        last_username: String as PropType<LastUsernameProp>,
-        error: Object as PropType<ErrorProp>,
-    },
 
     data: () => ({
         loading: false,
@@ -153,10 +144,11 @@ export default defineComponent({
             username: validations.username,
             email: validations.email,
             password: validations.password,
-            terms_accepts: [
+            terms_accepted: [
                 (value: boolean) =>
-                    value ||
-                    'Os termos de uso devem ser aceitos, para prosseguir',
+                    value
+                        ? true
+                        : 'Os termos de uso devem ser aceitos, para prosseguir',
             ],
         },
     }),

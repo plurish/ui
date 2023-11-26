@@ -7,14 +7,12 @@ use Psr\Log\LoggerInterface;
 use App\Factory\ResponseFactory;
 use App\DTO\User\UserPartialDTO;
 use App\DTO\Response\ResponseDTO;
-use App\Repository\UserRepository;
 use App\DTO\Request\SignUpRequestDTO;
 use App\DTO\User\UserDTO;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\Interface\AuthServiceInterface;
 use App\Service\Interface\UserServiceInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
-use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class AuthService implements AuthServiceInterface
@@ -64,6 +62,7 @@ class AuthService implements AuthServiceInterface
         return ResponseFactory::ok(
             'Usuário está autenticado corretamente',
             new UserPartialDTO(
+                $user->getId(),
                 $user->getUsername(),
                 $user->getEmail(),
                 $user->getRoles()
