@@ -1,6 +1,6 @@
 import { Game } from './game/game.dto';
 import { User } from './user/user.dto';
-import { GamePartial } from './game/game-partial.dto'; 
+import { GamePartial } from './game/game-partial.dto';
 import { UserPartial } from './user/user-partial.dto';
 import { ResponseWrapper } from './response-wrapper.dto';
 

@@ -17,16 +17,16 @@ RUN docker-php-ext-configure intl
 RUN docker-php-ext-install pdo pdo_mysql intl
 
 RUN curl -sS https://getcomposer.org/installer \
-    | php -- --install-dir=/usr/local/bin --filename=composer
-
-RUN curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash \
-    && apt install symfony-cli
+    | php -- --install-dir=/usr/local/bin --filename=composer \
+    & curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash \
+        && apt install symfony-cli
 
 RUN pecl install xdebug && docker-php-ext-enable xdebug
 COPY ./xdebug.ini "${PHP_INI_DIR}/conf.d"
 
 WORKDIR /var/www
 COPY ./ ./
+RUN rm -rf /var/www/node_modules & rm -rf /var/www/vendor
 
 # Creating dev user
 RUN groupadd --force -g 1000 dev
@@ -36,8 +36,8 @@ RUN chown -hR dev:dev /var/www
 USER dev
 
 # Installing dependencies
-RUN composer install
-RUN yarn
+RUN composer install & yarn
+RUN composer clear-cache & yarn cache clean
 
 # Starting the app
 CMD ["bash", "./init.sh"]

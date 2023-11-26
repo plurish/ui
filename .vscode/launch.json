@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Listen for Xdebug in Docker",
+      "name": "Debug",
       "type": "php",
       "request": "launch",
       "port": 9003,
@@ -11,13 +11,13 @@
       }
     },
     {
-      "name": "Docker Compose Up",
+      "name": "Start",
       "request": "launch",
       "preLaunchTask": "compose-up",
 	  "type": "node"
     },
 	{
-      "name": "Docker Compose Down",
+      "name": "Stop",
       "request": "launch",
       "preLaunchTask": "compose-down",
 	  "type": "node"
@@ -26,7 +26,7 @@
   "compounds": [
     {
       "name": "Start & Debug",
-      "configurations": ["Docker Compose Up", "Listen for Xdebug in Docker"]
+      "configurations": ["Start", "Debug"]
     }
   ]
 }
