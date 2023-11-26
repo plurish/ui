@@ -11,6 +11,12 @@
     </v-carousel>
 
     <div v-for="section in slideSections" :key="section.title">
+        <v-divider></v-divider>
+
+        <v-container class="ml-6 mt-2">
+            <h1 class="text-xl">{{ section.title }}</h1>
+        </v-container>
+
         <v-sheet elevation="8" color="transparent">
             <v-slide-group
                 v-model="section.state"
@@ -25,24 +31,15 @@
                 >
                     <v-card
                         :class="['ma-4', selectedClass]"
-                        width="270"
                         @click="toggle"
+                        width="270"
+                        hover
                     >
                         <v-img :src="game.cover" cover></v-img>
 
-                        <v-card-title>{{ game.title }}</v-card-title>
-
-                        <!--
-                            <v-card-actions>
-                                <v-spacer />
-
-                                <v-btn
-                                    text="Ver detalhes"
-                                    prepend-icon=""
-                                    variant="flat"
-                                ></v-btn>
-                            </v-card-actions>
-                        -->
+                        <v-card-title class="!text-lg">{{
+                            game.title
+                        }}</v-card-title>
                     </v-card>
                 </v-slide-group-item>
             </v-slide-group>
