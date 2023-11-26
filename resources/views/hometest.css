@@ -34,10 +34,24 @@
     grid-column: 1 / 3;
 }
 
+.embaixo-1 {
+    width: 100%;
+    height: 100%;
+    width: 1400px;
+    background-color: white;
+    border-radius: 20px;
+    text-align: center;
+}
+
 .embaixo-item {
     width: 100%;
     height: 100%;
     background-color: white;
     border-radius: 20px;
     text-align: center;
+   
+}
+
+.remove-shadow {
+    box-shadow: none    
 }
