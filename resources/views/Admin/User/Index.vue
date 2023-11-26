@@ -52,10 +52,25 @@
 
                 <template v-slot:item.id="{ item: user }">
                     <v-row class="!min-w-[100px]">
-                        <v-btn
-                            icon="mdi-pencil"
-                            @click="editUser(user?.id)"
-                        ></v-btn>
+                        <v-dialog width="600">
+                            <template v-slot:activator="{ props }">
+                                <v-btn v-bind="props" icon="mdi-pencil"></v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }">
+                                <Form
+                                    :user-id="user?.id"
+                                    @close="isActive.value = false"
+                                    @edited-successfully="
+                                        (message: VuetifyAlert) => {
+                                            alert = message;
+                                            isActive.value = false;
+                                            reload();
+                                        }
+                                    "
+                                />
+                            </template>
+                        </v-dialog>
 
                         <v-dialog width="500">
                             <template v-slot:activator="{ props }">
@@ -108,9 +123,10 @@ import { defineComponent } from 'vue';
 import { Head, router } from '@inertiajs/vue3';
 import { VuetifyAlert } from '@/assets/ts/utils/vuetify-alert';
 import axios, { AxiosResponse, AxiosError } from 'axios';
+import Form from './Form.vue';
 
 export default defineComponent({
-    components: { Head },
+    components: { Head, Form },
 
     props: {
         users: Array<UserPartial>,
@@ -173,8 +189,6 @@ export default defineComponent({
                     return;
                 }
 
-                this.showSkeletonLoader = true;
-
                 this.alert = {
                     title: 'Sucesso!',
                     text: data?.message ?? 'Usuário deletado com sucesso',
@@ -182,11 +196,7 @@ export default defineComponent({
                     closable: true,
                 };
 
-                router.reload({
-                    onFinish: () => {
-                        this.showSkeletonLoader = false;
-                    },
-                });
+                this.reload();
             } catch (e: unknown) {
                 console.error(e);
 
@@ -204,8 +214,14 @@ export default defineComponent({
                     };
             }
         },
-        async editUser(id: number) {
-            console.log('this user will be edited: ', id);
+        reload() {
+            this.showSkeletonLoader = true;
+
+            router.reload({
+                onFinish: () => {
+                    this.showSkeletonLoader = false;
+                },
+            });
         },
     },
 });
