@@ -9,6 +9,6 @@ export class User extends UserPartial {
         public readonly active: boolean,
         public readonly roles: Role[],
     ) {
-        super(username, email, roles);
+        super(id, username, email, roles);
     }
 }

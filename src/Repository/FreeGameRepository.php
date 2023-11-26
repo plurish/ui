@@ -29,6 +29,18 @@ class FreeGameRepository implements GameRepositoryInterface
         return GameMapper::freePartialsToStandardPartials($response->toArray());
     }
 
+    public function getAds(): array
+    {
+        $ads = [];
+
+        $path = __DIR__ . '/Data/game-advertisements.php';
+
+        if (file_exists($path))
+            $ads = require_once($path);
+
+        return $ads;
+    }
+
     public function getById(int $id): GameDTO
     {
         $response = $this->httpClient->request(Request::METHOD_GET, '/api/game', [

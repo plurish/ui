@@ -3,7 +3,7 @@
 @tailwind components;
 
 body {
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Inter', sans-serif;
 }
 
 // Scrollbar
@@ -17,11 +17,6 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #263238;
     border-radius: 1rem;
     border: 2px solid transparent;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background-color: #2c98d6;
 }

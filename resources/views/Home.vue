@@ -1,164 +1,53 @@
 <template>
-    <Head title="Home"><link rel="stylesheet" href="/hometest.css" /></Head>
+    <Head title="Home" />
 
-    <!-- Slider Main -->
-    <v-carousel
-        cycle
-        height="600"
-        hide-delimiter-background
-        show-arrows="hover"
-    >
-        <v-carousel-item v-for="(slide, i) in slides" :key="i">
-            <v-sheet :color="colors[i]" height="100%">
-                <div class="d-flex fill-height justify-center align-center">
-                    <div class="text-h2">{{ slide }} Slide</div>
-                </div>
-            </v-sheet>
-        </v-carousel-item>
+    <v-carousel show-arrows="hover" min-height="450" cycle>
+        <v-carousel-item
+            v-for="ad in advertisements"
+            :key="ad.id"
+            :src="ad.cover"
+            cover
+        ></v-carousel-item>
     </v-carousel>
 
-    <br />
-
-    <!-- Slider Jogos 1 -->
-    <v-sheet class="mx-auto" elevation="8" max-width="1700" color="transparent">
-        <v-slide-group
-            v-model="model"
-            class="pa-4"
-            selected-class="bg-success"
-            show-arrows
-        >
-            <v-slide-group-item
-                v-for="n in 15"
-                :key="n"
-                v-slot="{ isSelected, toggle, selectedClass }"
+    <div v-for="section in slideSections" :key="section.title">
+        <v-sheet elevation="8" color="transparent">
+            <v-slide-group
+                v-model="section.state"
+                class="pa-4"
+                selected-class="bg-success"
+                show-arrows
             >
-                <v-card
-                    color="grey-lighten-1"
-                    :class="['ma-4', selectedClass]"
-                    height="170"
-                    width="270"
-                    @click="toggle"
+                <v-slide-group-item
+                    v-for="game in section.slides"
+                    :key="game.id"
+                    v-slot="{ isSelected, toggle, selectedClass }"
                 >
-                    <div class="d-flex fill-height align-center justify-center">
-                        <v-scale-transition>
-                            <v-icon
-                                v-if="isSelected"
-                                color="white"
-                                size="48"
-                                icon="mdi-close-circle-outline"
-                            ></v-icon>
-                        </v-scale-transition>
-                    </div>
-                </v-card>
-            </v-slide-group-item>
-        </v-slide-group>
-    </v-sheet>
+                    <v-card
+                        :class="['ma-4', selectedClass]"
+                        width="270"
+                        @click="toggle"
+                    >
+                        <v-img :src="game.cover" cover></v-img>
 
-    <!-- Slider Jogos 2 -->
-    <v-sheet class="mx-auto" elevation="8" max-width="1700" color="transparent">
-        <v-slide-group
-            v-model="model"
-            class="pa-4"
-            selected-class="bg-success"
-            show-arrows
-        >
-            <v-slide-group-item
-                v-for="n in 15"
-                :key="n"
-                v-slot="{ isSelected, toggle, selectedClass }"
-            >
-                <v-card
-                    color="grey-lighten-1"
-                    :class="['ma-4', selectedClass]"
-                    height="170"
-                    width="270"
-                    @click="toggle"
-                >
-                    <div class="d-flex fill-height align-center justify-center">
-                        <v-scale-transition>
-                            <v-icon
-                                v-if="isSelected"
-                                color="white"
-                                size="48"
-                                icon="mdi-close-circle-outline"
-                            ></v-icon>
-                        </v-scale-transition>
-                    </div>
-                </v-card>
-            </v-slide-group-item>
-        </v-slide-group>
-    </v-sheet>
+                        <v-card-title>{{ game.title }}</v-card-title>
 
-    <!-- Banner propaganda -->
-    <section class="embaixo">
-        <div class="embaixo-1">
-            <p>1</p>
-        </div>
-    </section>
+                        <!--
+                            <v-card-actions>
+                                <v-spacer />
 
-    <!-- Slider Jogos 3 -->
-    <v-sheet class="mx-auto" elevation="8" max-width="1700" color="transparent">
-        <v-slide-group
-            v-model="model"
-            class="pa-4"
-            selected-class="bg-success"
-            show-arrows
-        >
-            <v-slide-group-item
-                v-for="n in 15"
-                :key="n"
-                v-slot="{ isSelected, toggle, selectedClass }"
-            >
-                <v-card
-                    color="grey-lighten-1"
-                    :class="['ma-4', selectedClass]"
-                    height="170"
-                    width="270"
-                    @click="toggle"
-                >
-                    <div class="d-flex fill-height align-center justify-center">
-                        <v-scale-transition>
-                            <v-icon
-                                v-if="isSelected"
-                                color="white"
-                                size="48"
-                                icon="mdi-close-circle-outline"
-                            ></v-icon>
-                        </v-scale-transition>
-                    </div>
-                </v-card>
-            </v-slide-group-item>
-        </v-slide-group>
-    </v-sheet>
-
-    <!-- Banner Characters -->
-    <section class="emcima">
-        <div class="emcima-item"><p>1</p></div>
-        <div class="emcima-item"><p>2</p></div>
-        <div class="emcima-item"><p>3</p></div>
-        <div class="emcima-item"><p>4</p></div>
-    </section>
-
-    <!-- Banner Abas -->
-    <section class="embaixo">
-        <div class="embaixo-item">
-            <p>a</p>
-        </div>
-
-        <div class="embaixo-div">
-            <div class="embaixo-item">
-                <p>b</p>
-            </div>
-
-            <div class="embaixo-item">
-                <p>c</p>
-            </div>
-
-            <div class="embaixo-item">
-                <p>d</p>
-            </div>
-        </div>
-    </section>
+                                <v-btn
+                                    text="Ver detalhes"
+                                    prepend-icon=""
+                                    variant="flat"
+                                ></v-btn>
+                            </v-card-actions>
+                        -->
+                    </v-card>
+                </v-slide-group-item>
+            </v-slide-group>
+        </v-sheet>
+    </div>
 </template>
 
 <script lang="ts">
@@ -170,19 +59,32 @@ export default defineComponent({
     components: { Head },
 
     props: {
-        games: Array<GamePartial>,
+        advertisements: Array<GamePartial>,
+        trendings: Array<GamePartial>,
+        populars: Array<GamePartial>,
+        new_releases: Array<GamePartial>,
+        recommendeds: Array<GamePartial>,
     },
 
-    data: () => ({
-        model: null,
-        colors: [
-            'indigo',
-            'warning',
-            'pink darken-2',
-            'red lighten-1',
-            'deep-purple accent-4',
-        ],
-        slides: ['First', 'Second', 'Third', 'Fourth', 'Fifth'],
-    }),
+    data: () => ({}),
+
+    computed: {
+        slideSections() {
+            return [
+                { title: 'Em alta', slides: this.trendings, state: null },
+                { title: 'Populares', slides: this.populars, state: null },
+                {
+                    title: 'Recomendados',
+                    slides: this.recommendeds,
+                    state: null,
+                },
+                {
+                    title: 'Lançamentos',
+                    slides: this.new_releases,
+                    state: null,
+                },
+            ];
+        },
+    },
 });
 </script>

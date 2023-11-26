@@ -11,6 +11,8 @@ interface GameRepositoryInterface
      */
     public function getAll(): array;
 
+    public function getAds(): array;
+
     /**
      * @return GameDTO
      */

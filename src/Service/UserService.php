@@ -131,6 +131,8 @@ class UserService implements UserServiceInterface
     public function delete(int $id, string $traceId): ResponseDTO
     {
         try {
+            // TODO: BARRAR DELEÇÃO DE SI PRÓPRIO
+
             $result = $this->userRepository->delete($id);
 
             return ResponseFactory::ok('Deleção realizada com sucesso!', $result);

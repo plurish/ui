@@ -17,7 +17,7 @@
                     class="mb-4"
                 />
 
-                <Logo class="flex justify-center align-center mb-6" />
+                <Logo class="flex justify-center align-center mb-8" />
 
                 <v-text-field
                     v-model="form.username"
@@ -95,18 +95,10 @@ import { Head, Link } from '@inertiajs/vue3';
 import { SubmitEventPromise } from 'vuetify';
 import Logo from '@/components/Logo.vue';
 import validations from '@/assets/ts/utils/form-validations';
-
-type ErrorProp = Object | null;
-type LastUsernameProp = string | null;
+import { ResponseWrapper } from '@/assets/ts/dtos';
 
 export default defineComponent({
     components: { Head, Link, Logo },
-
-    props: {
-        csrf_token: String,
-        last_username: String as PropType<LastUsernameProp>,
-        error: Object as PropType<ErrorProp>,
-    },
 
     data: () => ({
         loading: false,
@@ -165,9 +157,14 @@ export default defineComponent({
             } catch (e) {
                 console.error(e);
 
-                if (e instanceof AxiosError) {
+                const axiosError = e as AxiosError;
+
+                if (axiosError) {
+                    const response = axiosError?.response
+                        ?.data as ResponseWrapper<boolean> | null;
+
                     const errorMessage: string =
-                        e?.response?.data?.message ?? e.message;
+                        response?.message ?? axiosError.message;
 
                     error.message = errorMessage;
                     error.occurred = true;

@@ -8,6 +8,10 @@
             <v-app-bar-title>
                 <Logo />
             </v-app-bar-title>
+
+            <template v-slot:append>
+                <v-btn icon="mdi-magnify"></v-btn>
+            </template>
         </v-app-bar>
 
         <v-navigation-drawer v-model="showSidebar">
@@ -17,12 +21,10 @@
                 prepend-icon="mdi-account-circle"
             ></v-list-item>
 
-            <v-progress-circular
+            <v-skeleton-loader
                 v-else
-                indeterminate
-                color="primary"
-                class="ml-2"
-            ></v-progress-circular>
+                type="list-item-avatar"
+            ></v-skeleton-loader>
 
             <v-divider />
 
@@ -35,6 +37,29 @@
                     ></v-list-item>
                 </Link>
 
+                <v-list-group
+                    v-if="user?.roles.includes('ROLE_ADMIN')"
+                    value="admin"
+                >
+                    <template v-slot:activator="{ props }">
+                        <v-list-item
+                            v-bind="props"
+                            prepend-icon="mdi-security"
+                            title="Admin"
+                        >
+                        </v-list-item>
+                    </template>
+
+                    <Link href="/admin/user">
+                        <v-list-item
+                            title="Usuários"
+                            prepend-icon="mdi-account-multiple-outline"
+                            value="admin-users"
+                        >
+                        </v-list-item>
+                    </Link>
+                </v-list-group>
+
                 <v-list-item
                     title="Mudar tema"
                     value="theme"
@@ -43,11 +68,10 @@
                 >
                 </v-list-item>
 
-                <v-progress-circular
+                <v-skeleton-loader
                     v-if="loading"
-                    indeterminate
-                    color="primary"
-                ></v-progress-circular>
+                    type="list-item-avatar"
+                ></v-skeleton-loader>
 
                 <v-list-item
                     @click="signout"
@@ -107,6 +131,12 @@ export default /*#__PURE__*/ defineComponent({
         showSidebar: false,
         loading: false,
     }),
+
+    computed: {
+        isAdmin() {
+            return this.user?.roles.includes('ROLE_ADMIN');
+        },
+    },
 
     created() {
         this.getCurrentUser();

@@ -6,7 +6,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\Uid\Uuid;
 use App\DTO\Request\SignUpRequestDTO;
 use Symfony\Component\HttpFoundation\Request;
-use App\Http\Controller\Api\BaseApiController;
+use App\Http\Controller\Base\BaseApiController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Service\Interface\AuthServiceInterface;
 use Symfony\Component\Routing\Annotation\Route;

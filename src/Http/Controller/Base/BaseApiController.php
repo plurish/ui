@@ -1,6 +1,6 @@
 <? declare(strict_types=1);
 
-namespace App\Http\Controller\Api;
+namespace App\Http\Controller\Base;
 
 use App\DTO\Response\ResponseDTO;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
