@@ -2,6 +2,7 @@
 
 namespace App\Http\Controller;
 
+use App\Http\Controller\Base\BaseViewController;
 use App\Service\Interface\GameServiceInterface;
 use Psr\Log\LoggerInterface;
 use Rompetomp\InertiaBundle\Service\InertiaInterface;

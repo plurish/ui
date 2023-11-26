@@ -17,7 +17,7 @@
                     class="mb-4"
                 />
 
-                <Logo class="flex justify-center align-center mb-6" />
+                <Logo class="flex justify-center align-center mb-8" />
 
                 <v-text-field
                     v-model="form.username"

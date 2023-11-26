@@ -6,6 +6,7 @@ use App\Mapper\UserMapper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Uid\Uuid;
 use App\DTO\Request\UserRequestDTO;
+use App\Http\Controller\Base\BaseApiController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Service\Interface\UserServiceInterface;
 use Symfony\Component\Routing\Annotation\Route;

@@ -12,6 +12,7 @@ class UserMapper
     public static function entityToPartialDTO(UserEntity $entity): UserPartialDTO
     {
         return new UserPartialDTO(
+            $entity->getId(),
             $entity->getUsername(),
             $entity->getEmail(),
             $entity->getRoles()

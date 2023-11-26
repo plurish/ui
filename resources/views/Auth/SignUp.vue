@@ -17,7 +17,7 @@
                     class="mb-4"
                 />
 
-                <Logo class="flex justify-center align-center mb-6" />
+                <Logo class="flex justify-center align-center mb-8" />
 
                 <v-text-field
                     v-model="form.username"
@@ -121,17 +121,8 @@ import { SubmitEventPromise } from 'vuetify';
 import Logo from '@/components/Logo.vue';
 import validations from '@/assets/ts/utils/form-validations';
 
-type ErrorProp = Object | null;
-type LastUsernameProp = string | null;
-
 export default defineComponent({
     components: { Head, Link, Logo },
-
-    props: {
-        csrf_token: String,
-        last_username: String as PropType<LastUsernameProp>,
-        error: Object as PropType<ErrorProp>,
-    },
 
     data: () => ({
         loading: false,

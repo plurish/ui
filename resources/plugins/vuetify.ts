@@ -10,30 +10,34 @@ import { aliases, mdi } from 'vuetify/iconsets/mdi';
 const darkTheme: ThemeDefinition = {
     dark: true,
     colors: {
-        primary: '#fff',
-        secondary: '#DDF2FD'
-    }
-}
+        primary: '#67CED4',
+        secondary: '#47688D',
+    },
+};
 
 const lightTheme: ThemeDefinition = {
-  dark: false,
-}
+    dark: false,
+    colors: {
+        primary: '#253649',
+        secondary: '#2F9FA6',
+    },
+};
 
-export default createVuetify({ 
+export default createVuetify({
     components,
     directives,
     theme: {
         defaultTheme: 'dark',
         themes: {
             dark: darkTheme,
-            light: lightTheme
-        }
+            light: lightTheme,
+        },
     },
     icons: {
         defaultSet: 'mdi',
         aliases,
         sets: {
-            mdi
-        }
+            mdi,
+        },
     },
 });

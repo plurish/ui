@@ -64,6 +64,7 @@ class AuthService implements AuthServiceInterface
         return ResponseFactory::ok(
             'Usuário está autenticado corretamente',
             new UserPartialDTO(
+                $user->getId(),
                 $user->getUsername(),
                 $user->getEmail(),
                 $user->getRoles()
