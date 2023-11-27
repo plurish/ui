@@ -38,7 +38,7 @@ class AuthService implements AuthServiceInterface
             if (!$passwordMatches)
                 return ResponseFactory::unprocessableEntity('A senha deve ser confirmada corretamente');
 
-            $user = new UserDTO(0, $request->username, $request->email, true);
+            $user = new UserDTO($request->username, $request->email, true);
 
             return $this->userService->create($user, $request->password, $traceId);
         } catch (\Exception $ex) {
