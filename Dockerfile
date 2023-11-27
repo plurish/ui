@@ -31,11 +31,7 @@ RUN chown -hR dev:dev /var/www
 USER dev
 
 # Installing dependencies
-RUN composer install --no-dev --optimize-autoloader & yarn
-
-RUN yarn build
-
-# RUN yes | symfony console doctrine:migrations:migrate
+RUN composer install & yarn
 
 # Starting the app
-CMD ["symfony", "server:start"]
+CMD ["bash", "./init.sh"]
