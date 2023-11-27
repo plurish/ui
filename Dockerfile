@@ -35,5 +35,7 @@ RUN composer install --no-dev --optimize-autoloader & yarn
 
 RUN yarn build
 
+RUN yes | symfony console doctrine:migrations:migrate
+
 # Starting the app
 CMD ["symfony", "server:start"]
