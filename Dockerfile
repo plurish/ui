@@ -39,6 +39,9 @@ RUN composer clear-cache & yarn cache clean
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
 
+# Building the front-end app
+RUN yarn build
+
 # Starting the app
 EXPOSE 8000
 CMD ["symfony", "server:start"]
