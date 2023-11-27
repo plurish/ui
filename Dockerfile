@@ -31,7 +31,9 @@ RUN chown -hR dev:dev /var/www
 USER dev
 
 # Installing dependencies
-RUN composer install & yarn
+RUN composer install --no-dev --optimize-autoloader & yarn
+
+RUN yarn build
 
 # Starting the app
-CMD ["bash", "./init.sh"]
+CMD ["symfony", "server:start"]
