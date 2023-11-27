@@ -33,7 +33,7 @@ COPY ./ ./
 # Creating dev user
 RUN groupadd --force -g 1000 dev
 RUN useradd -ms /bin/bash --no-user-group -g 1000 -u 1000 dev
-# RUN chown -hR dev:dev /var/www
+RUN chown -hR dev:dev /var/www
 
 USER dev
 
