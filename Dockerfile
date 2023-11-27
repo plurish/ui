@@ -44,4 +44,6 @@ COPY --from=builder /app/public/build /var/www/public/build
 
 # Starting the app
 EXPOSE 8000
-CMD ["symfony", "server:start"]
+EXPOSE 9000
+
+CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
