@@ -39,8 +39,6 @@ RUN composer clear-cache & yarn cache clean
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
 
-RUN php /var/www/bin/console cache:clear
-
 # Starting the app
 EXPOSE 8000
 CMD ["symfony", "server:start"]
