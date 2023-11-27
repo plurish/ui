@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+    ui:
+        container_name: plurish-ui
+        image: plurish/ui:dev
+        build:
+            context: ./
+            dockerfile: Dockerfile.dev
+        extra_hosts:
+            - host.docker.internal:host-gateway
+        restart: unless-stopped
+        environment:
+            APP_ENV: dev
+            APP_SECRET: 4f85cf32df61ad793c2d0573d14d756c
+            DATABASE_URL: mysql://root:root@db:3306/auth?serverVersion=8.0.32&charset=utf8mb4
+        ports:
+            - 8000:8000
+        volumes:
+            - /var/www/vendor
+            - /var/www/node_modules
+            - ./:/var/www
+
+    db:
+        image: mysql:8.1
+        container_name: plurish-db-user
+        restart: always
+        environment:
+            MYSQL_ROOT_USER: root
+            MYSQL_ROOT_PASSWORD: root
+        volumes:
+            - db-user:/var/lib/mysql
+        ports:
+            - 3306:3306
+
+volumes:
+    db-user:
+        name: plurish-db-user

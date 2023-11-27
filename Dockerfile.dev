@@ -6,6 +6,7 @@ RUN apt update && apt install -y \
     curl \
     zip \
     unzip \
+    vim \
     libicu-dev \
     npm
 
@@ -20,6 +21,9 @@ RUN curl -sS https://getcomposer.org/installer \
     & curl -1sLf 'https://dl.cloudsmith.io/public/symfony/stable/setup.deb.sh' | bash \
         && apt install symfony-cli
 
+RUN pecl install xdebug && docker-php-ext-enable xdebug
+COPY ./xdebug.ini "${PHP_INI_DIR}/conf.d"
+
 WORKDIR /var/www
 COPY ./ ./
 
@@ -30,17 +34,9 @@ RUN chown -hR dev:dev /var/www
 
 USER dev
 
-# Installing dependencies + Clearing cache
-RUN composer install --no-dev --optimize-autoloader & \
-    yarn --production=true
-
+# Installing dependencies
+RUN composer install & yarn
 RUN composer clear-cache & yarn cache clean
 
-ENV APP_ENV=prod
-ENV APP_DEBUG=0
-
-RUN php bin/console cache:clear
-
 # Starting the app
-EXPOSE 80
-CMD ["symfony", "server:start"]
+CMD ["bash", "./init.sh"]

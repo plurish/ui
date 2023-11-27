@@ -4,13 +4,19 @@
         {
             "label": "compose-up",
             "command": "docker",
-            "args": ["compose", "up", "--build"],
+            "args": [
+                "compose",
+                "-f",
+                "docker-compose.dev.yml",
+                "up",
+                "--build"
+            ],
             "type": "shell"
         },
         {
             "label": "compose-down",
             "command": "docker",
-            "args": ["compose", "down"],
+            "args": ["compose", "-f", "docker-compose.dev.yml", "down"],
             "type": "shell"
         }
     ]
