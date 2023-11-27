@@ -27,4 +27,3 @@ jobs:
                   region: sa-east-1
                   version_label: ${{ github.sha }}
                   deployment_package: deploy.zip
-                  use_existing_version_if_available: true

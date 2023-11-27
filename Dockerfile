@@ -1,4 +1,4 @@
-FROM node:20-bookworm-slim AS frontend-builder
+FROM node:20-bookworm-slim AS builder
 
 WORKDIR /app
 COPY ./ ./
@@ -13,11 +13,7 @@ RUN apt update && apt install -y \
     curl \
     zip \
     unzip \
-    libicu-dev \
-    npm
-
-RUN npm i -g n && n 20 && npm i -g npm@latest
-RUN npm i -g yarn
+    libicu-dev
 
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install pdo pdo_mysql intl
@@ -38,19 +34,13 @@ RUN chown -hR dev:dev /var/www
 USER dev
 
 # Installing dependencies + Clearing cache
-RUN composer install --no-dev --optimize-autoloader & \
-    yarn --production=true
-
-RUN composer clear-cache & yarn cache clean
-
-ENV APP_ENV=prod
-ENV APP_DEBUG=0
+RUN composer install --no-dev --optimize-autoloader
 
 # Get the builded front-end code
-COPY --from=frontend-builder /app/public/build /var/www/public/build
+COPY --from=builder /app/public/build /var/www/public/build
 
 # Executing database migrations
-RUN yes | symfony console doctrine:migrations:migrate
+# RUN yes | symfony console doctrine:migrations:migrate
 
 # Starting the app
 EXPOSE 8000
