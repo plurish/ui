@@ -42,6 +42,9 @@ ENV APP_DEBUG=0
 # Building the front-end app
 RUN yarn build
 
+# Executing database migrations
+RUN symfony console doctrine:migrations:migrate
+
 # Starting the app
 EXPOSE 8000
 CMD ["symfony", "server:start"]
