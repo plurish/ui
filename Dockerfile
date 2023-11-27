@@ -42,5 +42,5 @@ ENV APP_DEBUG=0
 RUN php bin/console cache:clear
 
 # Starting the app
-EXPOSE 80
+EXPOSE 8000
 CMD ["symfony", "server:start"]
