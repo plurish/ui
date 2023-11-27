@@ -22,11 +22,11 @@ class UserMapper
     public static function entityToDTO(UserEntity $entity): UserDTO
     {
         return new UserDTO(
-            $entity->getId(),
             $entity->getUsername(),
             $entity->getEmail(),
             $entity->isActive(),
-            $entity->getRoles()
+            $entity->getRoles(),
+            $entity->getId(),
         );
     }
 
@@ -47,11 +47,11 @@ class UserMapper
     public static function requestToDTO(UserRequestDTO $user): UserDTO
     {
         return new UserDTO(
-            0,
             $user->username,
             $user->email,
             $user->active,
-            $user->roles
+            $user->roles,
+            0,
         );
     }
 }
