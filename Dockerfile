@@ -1,11 +1,4 @@
-FROM node:20-bookworm-slim AS builder
-
-WORKDIR /app
-COPY ./ ./
-RUN yarn
-RUN yarn build
-
-FROM php:8.2-fpm-bookworm
+FROM php:8.2-fpm-bookworm AS buider
 
 # Installing packages
 RUN apt update && apt install -y \
@@ -13,7 +6,11 @@ RUN apt update && apt install -y \
     curl \
     zip \
     unzip \
-    libicu-dev
+    libicu-dev \
+    npm
+
+RUN npm i -g n && n 20 && npm i -g npm@latest
+RUN npm i -g yarn
 
 RUN docker-php-ext-configure intl
 RUN docker-php-ext-install pdo pdo_mysql intl
@@ -33,17 +30,8 @@ RUN chown -hR dev:dev /var/www
 
 USER dev
 
-# Installing dependencies + Clearing cache
-RUN composer install --no-dev --optimize-autoloader
-
-# Get the builded front-end code
-COPY --from=builder /app/public/build /var/www/public/build
-
-# Executing database migrations
-# RUN yes | symfony console doctrine:migrations:migrate
+# Installing dependencies
+RUN composer install & yarn
 
 # Starting the app
-EXPOSE 8000
-EXPOSE 9000
-
-CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
+CMD ["bash", "./init.sh"]
