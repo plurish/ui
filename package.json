@@ -28,8 +28,6 @@
     "dependencies": {
         "@inertiajs/vue3": "^1.0.14",
         "@mdi/font": "^7.3.67",
-        "@preline/carousel": "^2.0.0",
-        "flowbite": "^2.1.1",
         "vue": "^3.3.8",
         "vue-loader": "17.0.0",
         "vuetify": "^3.4.0",
