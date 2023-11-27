@@ -41,16 +41,16 @@ class FreeGameService implements GameServiceInterface
     {
         try {
             /** @var array */
-            $games = ($this->get(60, $traceId))?->data;
+            $games = ($this->get(48, $traceId))?->data;
 
             $ads = $this->gameRepository->getAds();
 
             return ResponseFactory::ok(data: [
                 'advertisements' => $ads,
-                'populars' => array_slice($games, 0, 15),
-                'trendings' => array_slice($games, 15, 15),
-                'recommendeds' => array_slice($games, 30, 15),
-                'new_releases' => array_slice($games, 45, 15),
+                'populars' => array_slice($games, 0, 12),
+                'trendings' => array_slice($games, 12, 12),
+                'recommendeds' => array_slice($games, 24, 12),
+                'new_releases' => array_slice($games, 36, 12),
             ]);
         } catch (\Exception $ex) {
             $this->logger->error('[GameService.getWithCategories] - {exception} - TraceID: {traceId}', [

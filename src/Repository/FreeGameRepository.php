@@ -47,6 +47,8 @@ class FreeGameRepository implements GameRepositoryInterface
             'query' => ['id' => $id]
         ]);
 
-        return GameMapper::freeToStandard($response->toArray());
+        $content = $response->toArray();
+
+        return GameMapper::freeToStandard($content);
     }
 }

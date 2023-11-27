@@ -24,7 +24,7 @@ class GameDTO extends GamePartialDTO
         public readonly \DateTime $releaseDate,
 
     #[SerializedName('sys_requirements')]
-        public readonly SystemRequirementsDTO $sysRequirements,
+        public readonly ?SystemRequirementsDTO $sysRequirements,
 
         /** @var string[] */
         public readonly array $screenshots,

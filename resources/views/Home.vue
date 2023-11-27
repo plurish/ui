@@ -29,18 +29,30 @@
                     :key="game.id"
                     v-slot="{ isSelected, toggle, selectedClass }"
                 >
-                    <v-card
-                        :class="['ma-4', selectedClass]"
-                        @click="toggle"
-                        width="270"
-                        hover
-                    >
-                        <v-img :src="game.cover" cover></v-img>
+                    <v-dialog class="max-w-screen-md">
+                        <template v-slot:activator="{ props }">
+                            <v-card
+                                :class="['ma-4', selectedClass]"
+                                @click="toggle"
+                                width="270"
+                                v-bind="props"
+                                hover
+                            >
+                                <v-img :src="game.cover" cover></v-img>
 
-                        <v-card-title class="!text-lg">{{
-                            game.title
-                        }}</v-card-title>
-                    </v-card>
+                                <v-card-title class="!text-lg">{{
+                                    game.title
+                                }}</v-card-title>
+                            </v-card>
+                        </template>
+
+                        <template v-slot:default="{ isActive }">
+                            <Game
+                                :game-id="game.id"
+                                @close="isActive.value = false"
+                            />
+                        </template>
+                    </v-dialog>
                 </v-slide-group-item>
             </v-slide-group>
         </v-sheet>
@@ -51,9 +63,10 @@
 import { defineComponent } from 'vue';
 import { Head } from '@inertiajs/vue3';
 import { GamePartial } from '@/assets/ts/dtos';
+import Game from '@/views/Game.vue';
 
 export default defineComponent({
-    components: { Head },
+    components: { Head, Game },
 
     props: {
         advertisements: Array<GamePartial>,
