@@ -33,7 +33,7 @@ COPY ./ ./
 # Creating dev user
 RUN groupadd --force -g 1000 dev
 RUN useradd -ms /bin/bash --no-user-group -g 1000 -u 1000 dev
-RUN chown -hR dev:dev /var/www
+# RUN chown -hR dev:dev /var/www
 
 USER dev
 
@@ -50,7 +50,7 @@ ENV APP_DEBUG=0
 COPY --from=frontend-builder /app/public/build /var/www/public/build
 
 # Executing database migrations
-RUN symfony console doctrine:migrations:migrate
+RUN yes | symfony console doctrine:migrations:migrate
 
 # Starting the app
 EXPOSE 8000
