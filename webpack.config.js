@@ -1,5 +1,4 @@
-const
-    Encore = require('@symfony/webpack-encore'),
+const Encore = require('@symfony/webpack-encore'),
     path = require('path'),
     webpack = require('webpack'),
     { VuetifyPlugin } = require('webpack-plugin-vuetify');
@@ -16,7 +15,7 @@ Encore
     // public path used by the web server to access the output path
     .setPublicPath('/build')
 
-    .addEntry('app', './resources/assets/ts/app.ts')
+    .addEntry('app', './resources/app.ts')
 
     // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
     .splitEntryChunks()
@@ -45,22 +44,24 @@ Encore
     })
     .enableSassLoader()
     .enableTypeScriptLoader()
-    .enableVueLoader(() => { }, {
+    .enableVueLoader(() => {}, {
         runtimeCompilerBuild: false,
         version: 3,
     })
-    .enablePostCssLoader(config => {
+    .enablePostCssLoader((config) => {
         config.postcssOptions = { config: './postcss.config.ts' };
     })
 
     .addPlugin(new VuetifyPlugin({ autoImport: true }))
-    .addPlugin(new webpack.DefinePlugin({
-        __VUE_PROD_DEVTOOLS__: false,
-        __VUE_OPTIONS_API__: true
-    }))
+    .addPlugin(
+        new webpack.DefinePlugin({
+            __VUE_PROD_DEVTOOLS__: false,
+            __VUE_OPTIONS_API__: true,
+        }),
+    )
 
     .addAliases({
-        '@': path.resolve(__dirname, 'resources')
+        '@': path.resolve(__dirname, 'resources'),
     });
 
 module.exports = Encore.getWebpackConfig();
