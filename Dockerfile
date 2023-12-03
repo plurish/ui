@@ -8,7 +8,7 @@ WORKDIR /var/www
 
 COPY ./ ./
 
-RUN chmod 777 /var/www /var/www/yarn.lock
+RUN chmod 777 /var/www /var/www/yarn.lock /var/www/public
 
 USER dev
 
