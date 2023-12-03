@@ -14,7 +14,23 @@
 
         <v-container v-if="showSkeletonLoader">
             <v-skeleton-loader type="image" class="mb-4"></v-skeleton-loader>
-            <v-skeleton-loader type="article"></v-skeleton-loader>
+
+            <v-divider class="my-4"></v-divider>
+
+            <v-row no-gutters>
+                <v-col cols="12" md="6" class="p-3">
+                    <v-skeleton-loader type="paragraph"></v-skeleton-loader>
+                </v-col>
+
+                <v-col cols="12" md="6" class="p-3">
+                    <v-skeleton-loader type="paragraph"></v-skeleton-loader>
+                </v-col>
+            </v-row>
+
+            <v-skeleton-loader
+                type="paragraph"
+                class="mt-4 px-4"
+            ></v-skeleton-loader>
         </v-container>
 
         <v-container v-if="game">

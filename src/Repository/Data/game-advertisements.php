@@ -4,7 +4,7 @@ return [
     [
         "id" => 1,
         "title" => "Assassin's Creed: Crossover Stories",
-        "cover" => $_ENV['SYMFONY_DEFAULT_ROUTE_URL'] . "/images/games/assassins-creed.jpg",
+        "cover" => $_ENV['BASE_URL'] . "/images/games/assassins-creed.jpg",
         "background_image" => 'https://live.staticflickr.com/65535/51737277522_78f6d648fc_h.jpg',
         "description" => "Assassin's Creed is a non-linear action-adventure video game, during which the player controls a 12th-century Levantine Assassin named Altaïr Ibn-La'Ahad during the Third Crusade, whose life is experienced through the Animus by his 21st century descendant, Desmond Miles.",
         "genre" => "Adventure",
@@ -33,7 +33,7 @@ return [
     [
         "id" => 2,
         "title" => "Days Gone",
-        "cover" => $_ENV['SYMFONY_DEFAULT_ROUTE_URL'] . "/images/games/days-gone.jpg",
+        "cover" => $_ENV['BASE_URL'] . "/images/games/days-gone.jpg",
         "background_image" => '',
         "description" => 'Viaje e lute pelos Estados Unidos num cenário pós-pandêmico e mortífero. Jogue com Deacon St. John, um andarilho e caçador de recompensas que segue um caminho tortuoso, lutando para sobreviver ao mesmo tempo em que busca uma razão para viver neste jogo de aventura e ação em mundo aberto.',
         "genre" => "Shooter",
@@ -92,7 +92,7 @@ return [
     [
         "id" => 4,
         "title" => "Street Fighter™ 6",
-        "cover" => $_ENV['SYMFONY_DEFAULT_ROUTE_URL'] . "/images/games/street-fighter.jpg",
+        "cover" => $_ENV['BASE_URL'] . "/images/games/street-fighter.jpg",
         "background_image" => '',
         "description" => 'Com o poder do RE ENGINE próprio da Capcom, a experiência de Street Fighter 6 se expande por três modos de jogo distintos, apresentando: World Tour, Fighting Ground e Battle Hub.',
         "genre" => "Action",
@@ -118,5 +118,45 @@ return [
             'https://cdn.cloudflare.steamstatic.com/steam/apps/1364780/ss_2cfc2472e7ff99fd354935135d91e36e81951795.600x338.jpg?t=1700792231',
             'https://cdn.cloudflare.steamstatic.com/steam/apps/1364780/ss_3ceb422dbef5f8495e690ed526f684fdcb1022ec.600x338.jpg?t=1700792231',
         ]
+    ],
+    [
+        "id" => 5,
+        "title" => "Plurish",
+        "cover" => $_ENV['BASE_URL'] . "/images/plurish.png",
+        "description" => 'Com o poder do RE ENGINE próprio da Capcom, a experiência de Street Fighter 6 se expande por três modos de jogo distintos, apresentando: World Tour, Fighting Ground e Battle Hub.',
+        "genre" => "Action",
+        "platform" => "Windows",
+        "videos" => [],
+        "release_date" => "2023-06-02T17:01:58+00:00",
+        "sys_requirements" => [
+            "os" => "Windows 10 64-Bit (SP1) or Windows 10 64-Bit",
+            "processor" => "Intel Core i5-2500K@3.3GHz or AMD FX 6300@3.5GHz",
+            "memory" => "8GB RAM",
+            "graphics" => "NVIDIA® GeForce™ GTX 670 or NVIDIA® GeForce™ GTX 1050 / AMD® Radeon™ HD 7950 or AMD® Radeon™ R9 270",
+            "storage" => "70GB SSD space"
+        ],
+        "screenshots" => []
+    ],
+    [
+        "id" => 6,
+        "title" => "Street Fighter™ 6",
+        "cover" => $_ENV['BASE_URL'] . "/images/asian-games.png",
+        "background_image" => '',
+        "description" => 'Com o poder do RE ENGINE próprio da Capcom, a experiência de Street Fighter 6 se expande por três modos de jogo distintos, apresentando: World Tour, Fighting Ground e Battle Hub.',
+        "genre" => "Action",
+        "publisher" => "CAPCOM",
+        "developer" => "CAPCOM",
+        "platform" => "Windows",
+        "videos" => [],
+        "game_url" => "https://store.steampowered.com/app/1364780/Street_Fighter_6/",
+        "release_date" => "2023-06-02T17:01:58+00:00",
+        "sys_requirements" => [
+            "os" => "Windows 10 64-Bit (SP1) or Windows 10 64-Bit",
+            "processor" => "Intel Core i5-2500K@3.3GHz or AMD FX 6300@3.5GHz",
+            "memory" => "8GB RAM",
+            "graphics" => "NVIDIA® GeForce™ GTX 670 or NVIDIA® GeForce™ GTX 1050 / AMD® Radeon™ HD 7950 or AMD® Radeon™ R9 270",
+            "storage" => "70GB SSD space"
+        ],
+        "screenshots" => []
     ],
 ];

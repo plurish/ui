@@ -61,9 +61,15 @@ class GameMapper
         // TODO: simplificar processo de build do Game/GamePartial
         $partialGame = self::freePartialToStandardPartial($freeGame, 'description');
 
-        $minSysRequirements = array_key_exists('minimum_system_requirements', $freeGame) ? $freeGame['minimum_system_requirements'] : null;
+        $minSysRequirements = array_key_exists('minimum_system_requirements', $freeGame)
+            ? $freeGame['minimum_system_requirements']
+            : null;
 
-        $sysReqs = $minSysRequirements ? new SystemRequirementsDTO(
+        $haveSisReqs = $minSysRequirements
+            && array_key_exists('os', $minSysRequirements)
+            && $minSysRequirements['os'];
+
+        $sysReqs = $haveSisReqs ? new SystemRequirementsDTO(
             $minSysRequirements['os'],
             $minSysRequirements['processor'],
             $minSysRequirements['memory'],
