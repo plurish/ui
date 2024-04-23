@@ -2,26 +2,26 @@
 
 namespace App\Service\Interface;
 
-use App\DTO\Game\GamePartialDTO;
-use App\DTO\Response\ResponseDTO;
+use App\Dto\Game\GamePartialDto;
+use App\Dto\Response\ResponseDto;
 
 interface GameServiceInterface
 {
     /**
-     * @return ResponseDTO<GamePartialDTO[]>
+     * @return ResponseDto<GamePartialDto[]>
      */
-    public function get(?int $limit, string $traceId): ResponseDTO;
+    public function get(?int $limit, string $traceId): ResponseDto;
 
     /** 
      * Get the games separated by different categories for the UI,
      * like popular, recommended, trending, etc
      * 
-     * @return ResponseDTO
+     * @return ResponseDto
      */
-    public function getWithCategories(string $traceId): ResponseDTO;
+    public function getWithCategories(string $traceId): ResponseDto;
 
     /**
-     * @return ResponseDTO<GamePartialDTO>
+     * @return ResponseDto<GamePartialDto>
      */
-    public function getById(int $id, string $traceId): ResponseDTO;
+    public function getById(int $id, string $traceId): ResponseDto;
 }

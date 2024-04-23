@@ -2,21 +2,21 @@
 
 namespace App\Mapper;
 
-use App\DTO\Game\GameDTO;
-use App\DTO\Game\GamePartialDTO;
-use App\DTO\Game\SystemRequirementsDTO;
+use App\Dto\Game\GameDto;
+use App\Dto\Game\GamePartialDto;
+use App\Dto\Game\SystemRequirementsDto;
 use App\Repository\FreeGameRepository;
 use DateTime;
 
 class GameMapper
 {
     /**
-     * Converts one FreeToGame API game to a GamePartialDTO
+     * Converts one FreeToGame API game to a GamePartialDto
      */
     public static function freePartialToStandardPartial(
         array $freeGame,
         string $descriptionProp = 'short_description'
-    ): GamePartialDTO {
+    ): GamePartialDto {
         $baseUrl = FreeGameRepository::BASE_URL;
 
         $videos = [
@@ -26,7 +26,7 @@ class GameMapper
 
         $backgroundImage = $baseUrl . '/g/' . $freeGame['id'] . '/background.jpg';
 
-        return new GamePartialDTO(
+        return new GamePartialDto(
             $freeGame['id'],
             $freeGame['title'],
             $freeGame['thumbnail'],
@@ -41,9 +41,9 @@ class GameMapper
     }
 
     /**
-     * Converts an array of FreeToGame API games to an array of GamePartialDTO
+     * Converts an array of FreeToGame API games to an array of GamePartialDto
      * 
-     * @return GamePartialDTO[]
+     * @return GamePartialDto[]
      */
     public static function freePartialsToStandardPartials(array $freeGames): array
     {
@@ -54,9 +54,9 @@ class GameMapper
     }
 
     /**
-     * Converts a complete FreeToGame Game to a GameDTO
+     * Converts a complete FreeToGame Game to a GameDto
      */
-    public static function freeToStandard(array $freeGame): GameDTO
+    public static function freeToStandard(array $freeGame): GameDto
     {
         // TODO: simplificar processo de build do Game/GamePartial
         $partialGame = self::freePartialToStandardPartial($freeGame, 'description');
@@ -69,7 +69,7 @@ class GameMapper
             && array_key_exists('os', $minSysRequirements)
             && $minSysRequirements['os'];
 
-        $sysReqs = $haveSisReqs ? new SystemRequirementsDTO(
+        $sysReqs = $haveSisReqs ? new SystemRequirementsDto(
             $minSysRequirements['os'],
             $minSysRequirements['processor'],
             $minSysRequirements['memory'],
@@ -90,10 +90,10 @@ class GameMapper
         ]);
     }
 
-    /** Converts a GamePartialDTO to GameDTO */
-    public static function partialToFull(GamePartialDTO $partial, array $complement): GameDTO
+    /** Converts a GamePartialDto to GameDto */
+    public static function partialToFull(GamePartialDto $partial, array $complement): GameDto
     {
-        return new GameDTO(
+        return new GameDto(
             $partial->id,
             $partial->title,
             $partial->cover,

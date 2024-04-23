@@ -2,12 +2,12 @@
 
 namespace App\Service;
 
-use App\DTO\User\UserDTO;
+use App\Dto\User\UserDto;
 use App\Entity\UserEntity;
 use App\Mapper\UserMapper;
 use Psr\Log\LoggerInterface;
 use App\Factory\ResponseFactory;
-use App\DTO\Response\ResponseDTO;
+use App\Dto\Response\ResponseDto;
 use App\Service\Interface\UserServiceInterface;
 use App\Repository\Interface\UserRepositoryInterface;
 use Symfony\Component\Serializer\SerializerInterface;
@@ -23,7 +23,7 @@ class UserService implements UserServiceInterface
     ) {
     }
 
-    public function get(?int $limit, string $traceId): ResponseDTO
+    public function get(?int $limit, string $traceId): ResponseDto
     {
         try {
             if ($limit != null && $limit < 1)
@@ -32,9 +32,10 @@ class UserService implements UserServiceInterface
             $users = $this->userRepository->findBy([], limit: $limit);
 
             return ResponseFactory::ok(
-                data: UserMapper::entitiesToPartialDTOs($users)
+                data: UserMapper::entitiesToPartialDtos($users)
             );
         } catch (\Exception $ex) {
+            // TODO: criar middleware de tratamento de exceptions genérico e eliminar todos os try catches das services
             $this->logger->error('[UserService.get] - {exception} - TraceID: {traceId}', [
                 'exception' => $ex,
                 'traceId' => $traceId
@@ -44,7 +45,7 @@ class UserService implements UserServiceInterface
         }
     }
 
-    public function getOne(?int $id, ?string $username, ?string $email, string $traceId): ResponseDTO
+    public function getOne(?int $id, ?string $username, ?string $email, string $traceId): ResponseDto
     {
         try {
             $user = $this->userRepository->find($id);
@@ -52,7 +53,7 @@ class UserService implements UserServiceInterface
             if (!$user)
                 return ResponseFactory::noContent();
 
-            $dto = UserMapper::entityToDTO($user);
+            $dto = UserMapper::entityToDto($user);
 
             return ResponseFactory::ok(data: $dto);
         } catch (\Exception $ex) {
@@ -66,7 +67,7 @@ class UserService implements UserServiceInterface
         }
     }
 
-    public function create(UserDTO $user, string $plainPassword, string $traceId): ResponseDTO
+    public function create(UserDto $user, string $plainPassword, string $traceId): ResponseDto
     {
         try {
             $emailAndUsernameAvailable = $this->userRepository->getOne(
@@ -102,7 +103,7 @@ class UserService implements UserServiceInterface
         }
     }
 
-    public function update(UserDTO $user, string $traceId): ResponseDTO
+    public function update(UserDto $user, string $traceId): ResponseDto
     {
         try {
             $entity = $this->userRepository->getOne($user->username, $user->email);
@@ -128,7 +129,7 @@ class UserService implements UserServiceInterface
         }
     }
 
-    public function delete(int $id, string $traceId): ResponseDTO
+    public function delete(int $id, string $traceId): ResponseDto
     {
         try {
             // TODO: BARRAR DELEÇÃO DE SI PRÓPRIO

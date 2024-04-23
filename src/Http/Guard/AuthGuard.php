@@ -2,7 +2,7 @@
 
 namespace App\Http\Guard;
 
-use App\DTO\Request\SignInRequestDTO;
+use App\Dto\Request\SignInRequestDto;
 use App\Entity\UserEntity;
 use App\Factory\ResponseFactory;
 use App\Kernel;
@@ -42,10 +42,10 @@ class AuthGuard extends Authenticator
 
     public function authenticate(Request $request): Passport
     {
-        /** @var SignInRequestDTO */
+        /** @var SignInRequestDto */
         $form = $this->serializer->deserialize(
             $request->getContent(),
-            SignInRequestDTO::class,
+            SignInRequestDto::class,
             'json'
         );
 

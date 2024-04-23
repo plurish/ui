@@ -4,7 +4,7 @@ namespace App\Http\Controller\Api;
 
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Uid\Uuid;
-use App\DTO\Request\SignUpRequestDTO;
+use App\Dto\Request\SignUpRequestDto;
 use Symfony\Component\HttpFoundation\Request;
 use App\Http\Controller\Base\BaseApiController;
 use Symfony\Component\HttpFoundation\Response;
@@ -24,7 +24,7 @@ class AuthApiController extends BaseApiController
     }
 
     #[Route('/signup', name: 'api.auth.signup', methods: ['POST'])]
-    public function signup(#[MapRequestPayload] SignUpRequestDTO $request): Response
+    public function signup(#[MapRequestPayload] SignUpRequestDto $request): Response
     {
         $traceId = Uuid::v4()->toRfc4122();
 

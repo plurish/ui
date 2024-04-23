@@ -2,16 +2,16 @@
 
 namespace App\Mapper;
 
-use App\DTO\Request\UserRequestDTO;
-use App\DTO\User\UserDTO;
-use App\DTO\User\UserPartialDTO;
+use App\Dto\Request\UserRequestDto;
+use App\Dto\User\UserDto;
+use App\Dto\User\UserPartialDto;
 use App\Entity\UserEntity;
 
 class UserMapper
 {
-    public static function entityToPartialDTO(UserEntity $entity): UserPartialDTO
+    public static function entityToPartialDto(UserEntity $entity): UserPartialDto
     {
-        return new UserPartialDTO(
+        return new UserPartialDto(
             $entity->getId(),
             $entity->getUsername(),
             $entity->getEmail(),
@@ -19,9 +19,9 @@ class UserMapper
         );
     }
 
-    public static function entityToDTO(UserEntity $entity): UserDTO
+    public static function entityToDto(UserEntity $entity): UserDto
     {
-        return new UserDTO(
+        return new UserDto(
             $entity->getId(),
             $entity->getUsername(),
             $entity->getEmail(),
@@ -31,22 +31,22 @@ class UserMapper
     }
 
     /**
-     * Converts user entities to sanitized user DTOs
+     * Converts user entities to sanitized user Dtos
      * 
      * @param UserEntity[] $entities
-     * @return UserPartialDTO[]
+     * @return UserPartialDto[]
      */
-    public static function entitiesToPartialDTOs(array $entities): array
+    public static function entitiesToPartialDtos(array $entities): array
     {
         return array_map(
-            fn($entity) => self::entityToPartialDTO($entity),
+            fn($entity) => self::entityToPartialDto($entity),
             $entities
         );
     }
 
-    public static function requestToDTO(UserRequestDTO $user): UserDTO
+    public static function requestToDto(UserRequestDto $user): UserDto
     {
-        return new UserDTO(
+        return new UserDto(
             0,
             $user->username,
             $user->email,

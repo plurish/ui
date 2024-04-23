@@ -1,8 +1,8 @@
 <? declare(strict_types=1);
 
-namespace App\DTO\User;
+namespace App\Dto\User;
 
-class UserDTO
+class UserDto
 {
     public function __construct(
         public readonly int $id = 0,

@@ -1,8 +1,8 @@
 <? declare(strict_types=1);
 
-namespace App\DTO\Game;
+namespace App\Dto\Game;
 
-class SystemRequirementsDTO
+class SystemRequirementsDto
 {
     public function __construct(
         public readonly string $os,

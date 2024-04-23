@@ -2,10 +2,10 @@
 
 namespace App\Factory;
 
-use App\DTO\Response\ResponseDTO;
+use App\Dto\Response\ResponseDto;
 use Symfony\Component\HttpFoundation\Response;
 
-/** An inflexible factory for the ResponseDTO */
+/** An inflexible factory for the ResponseDto */
 class ResponseFactory
 {
     private static function create(int $status, ?string $message = '', mixed $data = null)
@@ -13,7 +13,7 @@ class ResponseFactory
         if (!array_key_exists($status, Response::$statusTexts))
             throw new \Exception('Invalid HTTP status code');
 
-        return new ResponseDTO($status, $message, $data);
+        return new ResponseDto($status, $message, $data);
     }
 
     // 200 - 299
@@ -22,9 +22,9 @@ class ResponseFactory
      * @param ?string $message Specify details about the response
      * @param T|null $data
      * 
-     * @return ResponseDTO<T|null>
+     * @return ResponseDto<T|null>
      */
-    public static function ok(?string $message = '', mixed $data = null): ResponseDTO
+    public static function ok(?string $message = '', mixed $data = null): ResponseDto
     {
         return self::create(Response::HTTP_OK, $message, $data);
     }
@@ -34,9 +34,9 @@ class ResponseFactory
      * @param ?string $message Specify details about the response
      * @param T|null $data
      * 
-     * @return ResponseDTO<T|null>
+     * @return ResponseDto<T|null>
      */
-    public static function created(?string $message = '', mixed $data = null): ResponseDTO
+    public static function created(?string $message = '', mixed $data = null): ResponseDto
     {
         return self::create(Response::HTTP_CREATED, $message, $data);
     }
@@ -44,9 +44,9 @@ class ResponseFactory
     /**
      * Returns a response without any content
      * 
-     * @return ResponseDTO<null>
+     * @return ResponseDto<null>
      */
-    public static function noContent(): ResponseDTO
+    public static function noContent(): ResponseDto
     {
         return self::create(Response::HTTP_NO_CONTENT);
     }
@@ -55,9 +55,9 @@ class ResponseFactory
     /**
      * @param ?string $message Specify details about the response
      * 
-     * @return ResponseDTO<null>
+     * @return ResponseDto<null>
      */
-    public static function unprocessableEntity(?string $message = ''): ResponseDTO
+    public static function unprocessableEntity(?string $message = ''): ResponseDto
     {
         return self::create(Response::HTTP_UNPROCESSABLE_ENTITY, $message);
     }
@@ -65,9 +65,9 @@ class ResponseFactory
     /**
      * @param ?string $message Specify details about the response
      * 
-     * @return ResponseDTO<null>
+     * @return ResponseDto<null>
      */
-    public static function badRequest(?string $message = ''): ResponseDTO
+    public static function badRequest(?string $message = ''): ResponseDto
     {
         return self::create(Response::HTTP_BAD_REQUEST, $message);
     }
@@ -75,9 +75,9 @@ class ResponseFactory
     /**
      * @param ?string $message Specify details about the response
      * 
-     * @return ResponseDTO<null>
+     * @return ResponseDto<null>
      */
-    public static function unauthorized(?string $message = ''): ResponseDTO
+    public static function unauthorized(?string $message = ''): ResponseDto
     {
         return self::create(Response::HTTP_UNAUTHORIZED, $message);
     }
@@ -85,9 +85,9 @@ class ResponseFactory
     /**
      * @param ?string $message Specify details about the response
      * 
-     * @return ResponseDTO<null>
+     * @return ResponseDto<null>
      */
-    public static function forbidden(?string $message = ''): ResponseDTO
+    public static function forbidden(?string $message = ''): ResponseDto
     {
         return self::create(Response::HTTP_FORBIDDEN, $message);
     }
@@ -95,9 +95,9 @@ class ResponseFactory
     /**
      * @param ?string $message Specify details about the response
      * 
-     * @return ResponseDTO<null>
+     * @return ResponseDto<null>
      */// 500 - 599
-    public static function internalServerError(?string $message = ''): ResponseDTO
+    public static function internalServerError(?string $message = ''): ResponseDto
     {
         // TODO: aceitar exception, tratá-la e retornar sua mensagem
         return self::create(Response::HTTP_INTERNAL_SERVER_ERROR, $message);

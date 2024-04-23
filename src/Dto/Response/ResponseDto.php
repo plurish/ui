@@ -1,9 +1,9 @@
 <? declare(strict_types=1);
 
-namespace App\DTO\Response;
+namespace App\Dto\Response;
 
 /** A response wrapper for the API responses */
-class ResponseDTO
+class ResponseDto
 {
     /** 
      * Preferably instantiated by App\Factory\ResponseFactory 
@@ -12,7 +12,7 @@ class ResponseDTO
      * @param ?string $message Specify details about the response
      * @param T|null $data
      * 
-     * @return ResponseDTO<T|null>
+     * @return ResponseDto<T|null>
      */
     public function __construct(
         public readonly int $status,

@@ -22,7 +22,7 @@ services:
     App\Http\Controller\:
         resource: '../src/Http/Controller/'
         arguments:
-            $inertia: '@rompetomp_inertia.inertia'
+            $inertia: '@rompetomp_inertia.inertia' 
         tags: ['controller.service_arguments']
         exclude:
             - '../src/Http/Controller/Api'

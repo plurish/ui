@@ -4,7 +4,7 @@ namespace App\Service;
 
 use Psr\Log\LoggerInterface;
 use App\Factory\ResponseFactory;
-use App\DTO\Response\ResponseDTO;
+use App\Dto\Response\ResponseDto;
 use App\Service\Interface\GameServiceInterface;
 use App\Repository\Interface\GameRepositoryInterface;
 
@@ -16,7 +16,7 @@ class FreeGameService implements GameServiceInterface
     ) {
     }
 
-    public function get(?int $limit, string $traceId): ResponseDTO
+    public function get(?int $limit, string $traceId): ResponseDto
     {
         try {
             $games = $this->gameRepository->getAll();
@@ -37,7 +37,7 @@ class FreeGameService implements GameServiceInterface
         }
     }
 
-    public function getWithCategories(string $traceId): ResponseDTO
+    public function getWithCategories(string $traceId): ResponseDto
     {
         try {
             /** @var array */
@@ -62,7 +62,7 @@ class FreeGameService implements GameServiceInterface
         }
     }
 
-    public function getById(int $id, string $traceId): ResponseDTO
+    public function getById(int $id, string $traceId): ResponseDto
     {
         try {
             $game = $this->gameRepository->getById($id);

@@ -5,10 +5,10 @@ namespace App\Service;
 use App\Entity\UserEntity;
 use Psr\Log\LoggerInterface;
 use App\Factory\ResponseFactory;
-use App\DTO\User\UserPartialDTO;
-use App\DTO\Response\ResponseDTO;
-use App\DTO\Request\SignUpRequestDTO;
-use App\DTO\User\UserDTO;
+use App\Dto\User\UserPartialDto;
+use App\Dto\Response\ResponseDto;
+use App\Dto\Request\SignUpRequestDto;
+use App\Dto\User\UserDto;
 use Symfony\Component\HttpFoundation\Request;
 use App\Service\Interface\AuthServiceInterface;
 use App\Service\Interface\UserServiceInterface;
@@ -25,7 +25,7 @@ class AuthService implements AuthServiceInterface
     ) {
     }
 
-    public function signup(SignUpRequestDTO $request, string $traceId): ResponseDTO
+    public function signup(SignUpRequestDto $request, string $traceId): ResponseDto
     {
         try {
             $validationErrors = $this->validator->validate($request);
@@ -38,7 +38,7 @@ class AuthService implements AuthServiceInterface
             if (!$passwordMatches)
                 return ResponseFactory::unprocessableEntity('A senha deve ser confirmada corretamente');
 
-            $user = new UserDTO(0, $request->username, $request->email, true);
+            $user = new UserDto(0, $request->username, $request->email, true);
 
             return $this->userService->create($user, $request->password, $traceId);
         } catch (\Exception $ex) {
@@ -51,7 +51,7 @@ class AuthService implements AuthServiceInterface
         }
     }
 
-    public function getAuthenticatedUser(Request $request): ResponseDTO
+    public function getAuthenticatedUser(Request $request): ResponseDto
     {
         /** @var UserEntity */
         $user = $this->tokenStorage->getToken()?->getUser();
@@ -61,7 +61,7 @@ class AuthService implements AuthServiceInterface
 
         return ResponseFactory::ok(
             'Usuário está autenticado corretamente',
-            new UserPartialDTO(
+            new UserPartialDto(
                 $user->getId(),
                 $user->getUsername(),
                 $user->getEmail(),

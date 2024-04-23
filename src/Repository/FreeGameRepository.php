@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\DTO\Game\GameDTO;
+use App\Dto\Game\GameDto;
 use App\Mapper\GameMapper;
 use App\Repository\Interface\GameRepositoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,12 +36,12 @@ class FreeGameRepository implements GameRepositoryInterface
         $path = __DIR__ . '/Data/game-advertisements.php';
 
         if (file_exists($path))
-            $ads = require_once($path);
+            $ads = require_once ($path);
 
         return $ads;
     }
 
-    public function getById(int $id): GameDTO
+    public function getById(int $id): GameDto
     {
         $response = $this->httpClient->request(Request::METHOD_GET, '/api/game', [
             'query' => ['id' => $id]

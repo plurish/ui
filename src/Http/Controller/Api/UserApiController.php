@@ -5,7 +5,7 @@ namespace App\Http\Controller\Api;
 use App\Mapper\UserMapper;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Uid\Uuid;
-use App\DTO\Request\UserRequestDTO;
+use App\Dto\Request\UserRequestDto;
 use App\Http\Controller\Base\BaseApiController;
 use Symfony\Component\HttpFoundation\Response;
 use App\Service\Interface\UserServiceInterface;
@@ -64,7 +64,7 @@ class UserApiController extends BaseApiController
 
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/', name: 'api.user.create', methods: ['POST'])]
-    public function create(#[MapRequestPayload] UserRequestDTO $request): Response
+    public function create(#[MapRequestPayload] UserRequestDto $request): Response
     {
         $traceId = Uuid::v4()->toRfc4122();
 
@@ -74,7 +74,7 @@ class UserApiController extends BaseApiController
         ]);
 
         $response = $this->userService->create(
-            UserMapper::requestToDTO($request),
+            UserMapper::requestToDto($request),
             $request->password,
             $traceId
         );
@@ -89,7 +89,7 @@ class UserApiController extends BaseApiController
 
     #[IsGranted('ROLE_ADMIN')]
     #[Route('/', name: 'api.user.update', methods: ['PATCH'])]
-    public function update(#[MapRequestPayload] UserRequestDTO $request): Response
+    public function update(#[MapRequestPayload] UserRequestDto $request): Response
     {
         $traceId = Uuid::v4()->toRfc4122();
 

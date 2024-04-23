@@ -2,19 +2,19 @@
 
 namespace App\Repository\Interface;
 
-use App\DTO\Game\{GamePartialDTO, GameDTO};
+use App\Dto\Game\{GamePartialDto, GameDto};
 
 interface GameRepositoryInterface
 {
     /**
-     * @return GamePartialDTO[]
+     * @return GamePartialDto[]
      */
     public function getAll(): array;
 
     public function getAds(): array;
 
     /**
-     * @return GameDTO
+     * @return GameDto
      */
-    public function getById(int $id): GameDTO;
+    public function getById(int $id): GameDto;
 }
