@@ -26,21 +26,6 @@ services:
       - /var/www/vendor
       - ./:/var/www
 
-  db:
-    image: mysql:8.1
-    container_name: plurish-db-auth
-    restart: always
-    environment:
-      MYSQL_ROOT_USER: root
-      MYSQL_ROOT_PASSWORD: root
-    volumes:
-      - db-auth:/var/lib/mysql
-    ports:
-      - 3306:3306
-
 volumes:
-  db-auth:
-    name: plurish-db-auth
-
   public-content:
     name: public-static-content
