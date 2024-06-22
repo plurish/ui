@@ -2,7 +2,6 @@
     "devDependencies": {
         "@babel/core": "^7.17.0",
         "@babel/preset-env": "^7.16.0",
-        "@symfony/webpack-encore": "^4.0.0",
         "autoprefixer": "^10.4.16",
         "core-js": "^3.23.0",
         "postcss-loader": "^7.3.3",
@@ -33,6 +32,7 @@
         "vue": "^3.3.8",
         "vue-loader": "17.0.0",
         "vuetify": "^3.4.0",
+        "@symfony/webpack-encore": "^4.0.0",
         "webpack-plugin-vuetify": "^2.0.1"
     }
 }
