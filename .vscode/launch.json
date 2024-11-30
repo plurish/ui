@@ -14,13 +14,13 @@
       "name": "Start",
       "request": "launch",
       "preLaunchTask": "compose-up",
-	  "type": "node"
+	    "type": "node"
     },
-	{
+	  {
       "name": "Stop",
       "request": "launch",
       "preLaunchTask": "compose-down",
-	  "type": "node"
+	    "type": "node"
     },
   ],
   "compounds": [

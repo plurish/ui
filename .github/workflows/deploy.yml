@@ -30,12 +30,12 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }}
           dockerfilePath: ./Dockerfile
-          registryUrl: devplurish.azurecr.io
+          registryUrl: plurish.azurecr.io
           registryUsername: ${{ secrets.REGISTRY_USERNAME }}
           registryPassword: ${{ secrets.REGISTRY_PASSWORD }}
-          containerAppName: dev-capp-ui-plurish
+          containerAppName: dev-capp-plurish-web
           resourceGroup: dev-rg-plurish
-          imageToBuild: devplurish.azurecr.io/ui:${{ github.sha }}
+          imageToBuild: plurish.azurecr.io/ui:${{ github.sha }}
           targetPort: 8000
           _buildArgumentsKey_: |
             _buildArgumentsValues_
