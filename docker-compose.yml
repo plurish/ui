@@ -16,7 +16,7 @@ services:
     image: plurish/ui:dev
     build:
       context: ./
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     extra_hosts:
       - host.docker.internal:host-gateway
     restart: unless-stopped

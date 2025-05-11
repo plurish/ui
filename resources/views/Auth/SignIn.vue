@@ -120,6 +120,10 @@ export default defineComponent({
         },
     }),
 
+    mounted() {
+        window.scrollTo(0, 0);
+    },
+
     methods: {
         async signin(event: SubmitEventPromise) {
             const error = {

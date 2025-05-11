@@ -1,9 +1,8 @@
 FROM plurish/server:latest
 
-ENV APP_ENV=prod
-
 RUN apt-get install -y --no-install-recommends vim & \
-    npm i -g yarn
+    npm i -g yarn & \
+    pecl install xdebug && docker-php-ext-enable xdebug
 
 WORKDIR /var/www
 
@@ -14,10 +13,10 @@ RUN chmod 777 /var/www /var/www/yarn.lock /var/www/public
 USER dev
 
 # Installing dependencies
-RUN composer install --no-dev --optimize-autoloader & yarn
-RUN yarn build
+RUN composer install & yarn
+RUN composer clear-cache & yarn cache clean
 
 # Starting the app
-EXPOSE 8000
+COPY ./xdebug.ini "${PHP_INI_DIR}/conf.d"
 
-ENTRYPOINT ["symfony", "server:start"]
+CMD ["bash", "./init.sh"]
